@@ -1,0 +1,42 @@
+{%extends 'inicioBase.html'%}
+{%block content%}
+<div class="container container-tight py-4">
+  <div class="text-center mb-4">
+    <a href="/" class="navbar-brand navbar-brand-autodark">
+      <img src="/static/icon/logo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+      <span>Veranum</span>
+    </a>
+  </div>
+  <form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Registro de Cuenta</h2>
+      <div class="mb-4">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-control" placeholder="Usuario">
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Correo</label>
+        <input type="email" class="form-control" placeholder="ejemplo@ejemplo.com">
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Contraseña</label>
+        <div class="input-group input-group-flat">
+          <input type="password" class="form-control"  placeholder="Contraseña"  autocomplete="off">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Repetir Contraseña</label>
+        <div class="input-group input-group-flat">
+          <input type="password" class="form-control"  placeholder="Repetir contraseña" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-footer">
+        <button type="submit" class="btn btn-warning w-100">Registrarse</button>
+      </div>
+    </div>
+  </form>
+  <div class="text-center text-secondary mt-3">
+    ¿Ya tienes cuenta? <a href="/inicioSesion" tabindex="-1">Inicia Sesion</a>
+  </div>
+</div>
+{%endblock%}

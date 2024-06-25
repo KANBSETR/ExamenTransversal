@@ -1,0 +1,103 @@
+{%extends 'inicioBase.html'%}
+{%block content%}
+<title>
+    Acerca de nosotros
+</title>
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="row g-2 align-items-center">
+            <div class="col">
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="container-xl">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="card card-lg">
+                    <div class="card-body markdown">
+                        <h1 id="whos-that-then">Sobre Nosotros: Hotel Veranum</h1>
+                        <p>
+                            Enclavado en el corazón de Santiago, 
+                            Hotel Veranum es un refugio de lujo que ofrece una experiencia inigualable para todos nuestros 
+                            huéspedes. Desde nuestras habitaciones elegantemente decoradas hasta nuestras instalaciones de 
+                            primer nivel, nos enorgullecemos de brindar un servicio excepcional y una hospitalidad que se siente 
+                            como en casa.
+                        </p>
+                        <h2>
+                            Nuestra Historia
+                        </h2>
+                        <p>
+                            Hotel Veranum abrió sus puertas en 1969, con la visión de crear un espacio donde la comodidad, 
+                            el lujo y el servicio personalizado se combinaran para ofrecer una estancia inolvidable. 
+                            Fundado por Harrys y su familia, el hotel ha crecido y evolucionado con el tiempo, 
+                            manteniendo siempre su compromiso con la excelencia y la satisfacción del cliente.
+                        </p>
+                        <h2 id="well-mercias-a-temperate-zone">Misión y Visión</h2>
+                        <h4>Misión</h4>
+                        <p>Nuestra misión es proporcionar una experiencia de alojamiento superior que supere las expectativas 
+                            de nuestros huéspedes a través de un servicio personalizado, instalaciones de alta calidad y un 
+                            ambiente acogedor y sofisticado.</p>
+                        <h4>Visión</h4>
+                        <p>Como líderes en la industria hotelera, nuestra visión es ser reconocidos como el destino preferido 
+                            para los viajeros que buscan una experiencia de alojamiento de lujo en Santiago. 
+                            Nos esforzamos por ser un lugar donde la hospitalidad y la comodidad se unan para crear recuerdos 
+                            inolvidables para nuestros huéspedes.</p>
+                        
+                        <div class="center">
+                            <div class="text-center">
+                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-report">
+                                    Contactanos!
+                                </a>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Contacto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="example-text-input" placeholder="Ej: Harrys">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Apellido</label>
+                <input type="text" class="form-control" name="example-text-input" placeholder="Ej: Piccaso">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="Email" class="form-control" name="example-text-input" placeholder="Ej: ejemplo@ejemplo.com">
+              </div>
+            </div>
+            <div class="modal-body">
+                <label class="form-label">Mensaje</label>
+                <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="Escribe tu mensaje aquí"></textarea>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                Cancel
+              </a>
+              <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                Create new report
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{%endblock%}
