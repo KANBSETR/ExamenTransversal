@@ -83,3 +83,12 @@ class HabitacionDetail(APIView):
         habitacion = self.get_object(pk)
         habitacion.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def api_root(request):
+    return JsonResponse({
+        'message': 'Bienvenido a la API del Hotel Veranum',
+        'routes': {
+            'habitaciones': '/api/habitacion/',
+        }
+    })

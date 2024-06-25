@@ -3,16 +3,16 @@ const lo_path = 'habitacion/';
 
 function agregarHabitacion() {
     var data = {
-        id_habitacion: document.getElementById('idHabitacion').value,
-        num_habitacion: document.getElementById('numHabitacion').value,
-        cant_banos: document.getElementById('numBanos').value,
-        cant_camas: document.getElementById('numCamas').value,
-        tamano_camas: document.getElementById('cbTamano').value,
-        capa_max: document.getElementById('numCapacidad').value,
+        idHabitacion: document.getElementById('idHabitacion').value,
+        numHabitacion: document.getElementById('numHabitacion').value,
+        cantBanos: document.getElementById('numBanos').value,
+        cantCamas: document.getElementById('numCamas').value,
+        tamanoCamas: document.getElementById('cbTamano').value,
+        capaMax: document.getElementById('numCapacidad').value,
         precio: document.getElementById('numPrecio').value,
         estado: document.getElementById('cbEstado').value,
         servicios: document.getElementById('cbServicios').value,
-        tipo_habitacion: document.getElementById('cbTipoHab').value,
+        tipoHabitacion: document.getElementById('cbTipoHab').value,
         empleado: document.getElementById('cbEmpleado').value,
         hotel: document.getElementById('cbHotel').value,
     };
@@ -40,25 +40,25 @@ function agregarHabitacion() {
 
 
 function actualizar() {
-    var id_habitacion = document.getElementById('idHabitacion').value;
+    var idHabitacion = document.getElementById('idHabitacion').value;
     var data = {
-        id_habitacion: document.getElementById('idHabitacion').value,
-        num_habitacion: document.getElementById('numHabitacion').value,
-        cant_banos: document.getElementById('numBanos').value,
-        cant_camas: document.getElementById('numCamas').value,
-        tamano_camas: document.getElementById('cbTamano').value,
-        capa_max: document.getElementById('numCapacidad').value,
+        idHabitacion: document.getElementById('idHabitacion').value,
+        numHabitacion: document.getElementById('numHabitacion').value,
+        cantBanos: document.getElementById('numBanos').value,
+        cantCamas: document.getElementById('numCamas').value,
+        tamanoCamas: document.getElementById('cbTamano').value,
+        capaMax: document.getElementById('numCapacidad').value,
         precio: document.getElementById('numPrecio').value,
         estado: document.getElementById('cbEstado').value,
         servicios: document.getElementById('cbServicios').value,
-        tipo_habitacion: document.getElementById('cbTipoHab').value,
+        tipoHabitacion: document.getElementById('cbTipoHab').value,
         empleado: document.getElementById('cbEmpleado').value,
         hotel: document.getElementById('cdHotel').value,
     };
 
     $.ajax({
         type: "PUT",
-        url: url_api + lo_path + id_habitacion,
+        url: url_api + lo_path + idHabitacion,
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: "json",
@@ -78,7 +78,7 @@ function actualizar() {
 }
 
 function eliminar() {
-    var id_habitacion = document.getElementById('idHabitacion').value;
+    var idHabitacion = document.getElementById('idHabitacion').value;
     $.ajax({
         type: "DELETE",
         url: url_api + lo_path + id_habitacion,
@@ -101,11 +101,23 @@ function eliminar() {
 
 
 
-
-
-
-
-
+$.ajax({
+    type: "GET",
+    url: url_api + lo_path, 
+    success: function(hoteles) {
+        console.log(hoteles); // Esto imprimirá en la consola la respuesta del backend
+        var selectHotel = $('#cdHotel'); 
+        hoteles.forEach(function(hotel) {
+            selectHotel.append($('<option>', {
+                value: hotel.idHotel, 
+                text: hotel.nombre
+            }));
+        });
+    },
+    error: function() {
+        alert('Error al cargar los hoteles');
+    }
+});
 
 
 

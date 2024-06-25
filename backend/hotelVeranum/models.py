@@ -9,30 +9,30 @@ from datetime import date
 
 
 class Region (models.Model):
-    id_region = models.AutoField(primary_key=True)
+    idRegion = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre
 
 class Provincia (models.Model):
-    id_provincia = models.AutoField(primary_key=True)
+    idProvincia = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
-    id_region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    idRegion = models.ForeignKey(Region, on_delete=models.CASCADE)
    
     def __str__(self):
-        return self.nombre + ', Region' + self.id_region.nombre
+        return self.nombre + ', Region' + self.idRegion.nombre
 
 class Comuna (models.Model):
-    id_comuna = models.AutoField(primary_key=True)
+    idComuna = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
-    id_provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
+    idProvincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
  
     def __str__(self):
-        return self.nombre + ', Provincia' + self.id_provincia.nombre
+        return self.nombre + ', Provincia' + self.idProvincia.nombre
 
 class Genero(models.Model):
-    idGenero  = models.AutoField( primary_key=True,db_column='id_genero')
+    idGenero  = models.AutoField( primary_key=True,db_column='idGenero')
     nombre     = models.CharField(max_length=20, blank=False, null=False,db_column='genero')
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
 
@@ -53,8 +53,8 @@ class Persona(models.Model):
     email = models.EmailField(unique=False)
     fechaNacimiento = models.DateField(blank=True, null=True,db_column='fecha_nacimiento')
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
-    comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='id_comuna')
-    genero        = models.ForeignKey(Genero, models.DO_NOTHING, db_column='id_genero')
+    comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='idComuna')
+    genero        = models.ForeignKey(Genero, models.DO_NOTHING, db_column='idGenero')
     telefono = models.CharField(max_length=15)
     
 
@@ -64,7 +64,7 @@ class Persona(models.Model):
 
 
 class Cargo(models.Model): #steve
-    idCargo = models.AutoField(null=False, primary_key=True, db_column='codCargo')
+    idCargo = models.AutoField(null=False, primary_key=True, db_column='idCargo')
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
     OPCIONES_CARGO = [
         ('Usuario', 'Usuario normal'),
@@ -106,7 +106,7 @@ class Empleado(models.Model):
     rut = models.ForeignKey(Persona, models.DO_NOTHING, db_column='rut')
     usuario = models.CharField(max_length=20, null=False)
     clave = models.CharField(max_length=10, null=False)
-    codCargo = models.ForeignKey(Cargo, models.DO_NOTHING)
+    idCargo = models.ForeignKey(Cargo, models.DO_NOTHING)
     sueldo = models.IntegerField(null=False)
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
     
@@ -114,7 +114,7 @@ class Empleado(models.Model):
         return f'Empleado: {self.rut.nombre} {self.rut.apPaterno}'    
 
 class Usuario(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
+    idUsuario = models.AutoField(primary_key=True)
     usuario=models.CharField(unique=True,max_length=20, null=False)
     nombre = models.CharField(max_length=50, blank=True, null=True) #Cuando el usuario quiera editar su perfil, agrega el nombre
     correo = models.EmailField(unique=True) 
@@ -124,7 +124,7 @@ class Usuario(models.Model):
     
 #Ej: vip, nose ,normal ,etc
 class Categoria (models.Model):
-        id_categoria = models.AutoField(primary_key=True)
+        idCategoria = models.AutoField(primary_key=True)
         nombre = models.CharField(max_length=50)
         descripcion = models.CharField(max_length=50)
         
@@ -144,10 +144,10 @@ class Categoria (models.Model):
         
 #Ej: habitacion simple, doble, triple, etc
 class TipoHabitacion (models.Model):
-        id_tipo_habitacion = models.AutoField(primary_key=True)
+        idTipoHabitacion = models.AutoField(primary_key=True)
         nombre = models.CharField(max_length=50)
         descripcion = models.CharField(max_length=50)
-        id_categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+        idCategoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
         
         OPCIONES_TIPO_HABITACION = [
             ('Simple', 'Simple'),
@@ -156,14 +156,14 @@ class TipoHabitacion (models.Model):
             ('Matrimonial', 'Matrimonial'),
         ]
         
-        tipos_habitaciones = models.CharField(max_length=50, choices=OPCIONES_TIPO_HABITACION, default='Simple')
+        tiposHabitaciones = models.CharField(max_length=50, choices=OPCIONES_TIPO_HABITACION, default='Simple')
         
         def __str__(self):
             return self.nombre
 
 #Ej: wifi, tv, etc
 class ServicioAdicional (models.Model):
-        id_servicio = models.AutoField(primary_key=True)
+        idServicioAdicional = models.AutoField(primary_key=True)
         nombre = models.CharField(max_length=50)
         descripcion = models.CharField(max_length=50)
         precio = models.IntegerField()
@@ -173,45 +173,46 @@ class ServicioAdicional (models.Model):
             return self.nombre
     
 class Hotel (models.Model):
-        id_hotel = models.AutoField(primary_key=True)
-        patente_hotel = models.CharField(max_length=50)
+        idHotel = models.AutoField(primary_key=True)
+        patenteHotel = models.CharField(max_length=50)
         nombre = models.CharField(max_length=50)
         telefono = models.CharField(max_length=50)
         correo = models.EmailField()
         direccion = models.CharField(max_length=50)
-        estado_habitacion = models.BooleanField()      
-        id_comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+        estadoHabitacion = models.BooleanField()      
+        idComuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
         
         def __str__(self):
             return self.nombre
         
 class HotelDetalle (models.Model):
-        id_hotel_detalle = models.AutoField(primary_key=True)
+        idHotelDetalle = models.AutoField(primary_key=True)
         descripcion = models.CharField(max_length=350)
-        cantidad_habitaciones = models.IntegerField()
-        cantidad_empleados = models.IntegerField()
-        categoria_hotel = models.CharField(max_length=50)
-        servicios_adicionales = models.CharField(max_length=50)
-        id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-        id_tipo_habitacion = models.ForeignKey(TipoHabitacion, on_delete=models.CASCADE)
-        id_servicio = models.ForeignKey(ServicioAdicional, on_delete=models.CASCADE)
+        cantidadHabitaciones = models.IntegerField()
+        cantidadEmpleados = models.IntegerField()
+        categoriaHotel = models.CharField(max_length=50)
+        idServicioAdicional = models.ForeignKey(ServicioAdicional, on_delete=models.CASCADE)
+        idHotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+        idTipoHabitacion = models.ForeignKey(TipoHabitacion, on_delete=models.CASCADE)
+        idServicioAdicional = models.ForeignKey(ServicioAdicional, on_delete=models.CASCADE)
         
         def __str__(self):
-            return self.id_hotel
+            return self.descripcion
 
 class Habitacion (models.Model):
-        id_habitacion = models.AutoField(primary_key=True)
-        numero_habitacion = models.IntegerField()
-        cant_banos = models.IntegerField()
-        cant_camas = models.IntegerField()
-        tamano_camas = models.CharField(max_length=50)
-        cant_personas_disp = models.IntegerField()
+        idHabitacion = models.AutoField(primary_key=True)
+        numeroHabitacion = models.IntegerField()
+        cantDormitorios = models.IntegerField()
+        cantBanos = models.IntegerField()
+        cantCamas = models.IntegerField()
+        tamanoCamas = models.CharField(max_length=50)
+        cantPersonasDisp = models.IntegerField()
         precio = models.IntegerField()
-        estado_habitacion = models.CharField(max_length=50)
-        servicios_adicionales = models.CharField(max_length=150)
-        id_tipo_habitacion = models.ForeignKey(TipoHabitacion, on_delete=models.CASCADE)
-        id_empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
-        id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+        estadoHabitacion = models.CharField(max_length=50)
+        idServicioAdicional = models.ForeignKey(ServicioAdicional, on_delete=models.CASCADE)
+        idTipoHabitacion = models.ForeignKey(TipoHabitacion, on_delete=models.CASCADE)
+        idEmpleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
+        idHotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
         descripcion = models.CharField(max_length=50, null=True)
         
         def __str__(self):
@@ -219,7 +220,7 @@ class Habitacion (models.Model):
         
 #Requerimiento 13 al 17 - Inventario 
 class FormaPago(models.Model): 
-    id_FPago = models.AutoField(null=False, primary_key=True,db_column='id_FPago')
+    idFPago = models.AutoField(null=False, primary_key=True,db_column='idFPago')
     nombre = models.CharField(max_length=200, null=False,db_column='nombre')
     
     def __str__(self):
@@ -233,10 +234,10 @@ class Eventos(models.Model):
     descripcion = models.CharField(max_length=50)
     precio = models.IntegerField()
     estado = models.BooleanField()
-    id_hotel = models.ForeignKey(Hotel, models.DO_NOTHING, db_column='id_hotel')
-    id_FPago = models.ForeignKey(FormaPago, models.DO_NOTHING, db_column='id_FPago')
-    id_empleado = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='id_empleado')
-    id_usuario = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='id_usuario')
+    idHotel = models.ForeignKey(Hotel, models.DO_NOTHING, db_column='idHotel')
+    idFPago = models.ForeignKey(FormaPago, models.DO_NOTHING, db_column='idFPago')
+    idEmpleado = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='idEmpleado')
+    idUsuario = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='idUsuario')
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
     fModificacion = models.DateTimeField(auto_now_add=False, auto_now=True)
     
@@ -247,13 +248,14 @@ class Reserva(models.Model):
     idReserva = models.AutoField(primary_key=True)
     fechaInicio = models.DateTimeField()
     fechaTermino = models.DateTimeField()
+    cantPersonas = models.IntegerField()
     estado = models.BooleanField()
-    id_habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
-    id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    idHabitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
+    idHotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    idUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
-    
+
     def __str__(self):
-        return self.idReserva
+        return self.idUsuario.usuario + ' ' + self.idHabitacion.descripcion
 
 
