@@ -10,9 +10,12 @@
                 <!-- Page title actions -->
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-agregar-habitacion">
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                            data-bs-target="#modal-agregar-habitacion">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
@@ -41,17 +44,22 @@
                 <div class="card-body">
                     <div id="table-default" class="table-responsive">
                         <div class="search-container">
-                            <input id="buscarHabitacion" class="search-input" type="text" placeholder="Buscar" oninput="buscarHabitacion()" />
+                            <input id="buscarHabitacion" class="search-input" type="text" placeholder="Buscar"
+                                oninput="buscarHabitacion()" />
                         </div>
                         <table id="habitacion-table" class="table">
-                            <thead> 
+                            <thead>
                                 <tr>
                                     <th><button class="table-sort" data-sort="sort-quantity">#</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Número de Habitación</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Cantidad Baños</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Cantidad Camas</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Número de
+                                            Habitación</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Cantidad Baños</button>
+                                    </th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Cantidad Camas</button>
+                                    </th>
                                     <th><button class="table-sort" data-sort="sort-quantity">Tamaño Camas</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Capacidad Habit.</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Capacidad Habit.</button>
+                                    </th>
                                     <th><button class="table-sort" data-sort="sort-quantity">Precio</button></th>
                                     <th><button class="table-sort" data-sort="sort-name">Estado</button></th>
                                     <th></th>
@@ -70,118 +78,131 @@
 
 <div class="modal modal-blur fade" id="modal-agregar-habitacion" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Nueva Habitacion</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    <label class="form-label">ID Habitacion</label>
-                    <input id="idHabitacion" type="number" class="form-control" name="example-text-input" placeholder="ID">
-                </div>
-                <div class="col-lg-4">
-                  <label class="form-label">Númnero Habitacion</label>
-                  <input id="numHabitacion" type="number" class="form-control" name="example-text-input" placeholder="Número de habitación">
-                </div>
-                <div class="col-lg-4">
-                  <label class="form-label">Cantidad de baños</label>
-                  <input id="numBanos" type="number" class="form-control" name="example-text-input" placeholder="Baños">
-                  <br>
-                </div>
-                <div class="col-lg-4">
-                  <label class="form-label">Cantidad de camas</label>
-                  <input id="numCamas" type="number" class="form-control" name="example-text-input" placeholder="Camas">
-                  <br>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Tamaño de camas</label>
-                    <select id="cbTamano" class="form-select" name="tamano-camas">
-                        <option value="individual">Individual</option>
-                        <option value="matrimonial">Matrimonial</option>
-                        <option value="queen">Queen</option>
-                        <option value="king">King</option>
-                    </select>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Capacidad</label>
-                    <input id="numCapacidad" type="number" class="form-control" name="example-text-input" placeholder="Cantidad de personas Max.">
-                    <br>
-                </div>
-                <div class="col-lg-5">
-                    <label class="form-label">Precio</label>
-                    <div class="input-group input-group-flat">
-                      <span class="input-group-text">
-                        $
-                      </span>
-                      <input id="numPrecio" type="number" class="form-control" name="example-text-input" placeholder="Precio">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva Habitacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label class="form-label">ID Habitacion</label>
+                        <input id="idHabitacion" type="number" class="form-control" name="example-text-input"
+                            placeholder="ID">
                     </div>
-                    <br>
-                </div>
-                <div class="col-lg-7">
-                  <label class="form-label">Estado de la Habitacion</label>
-                  <select id="cbEstado" class="form-select" name="estado-habitacion">
-                      <option value="disponible">Disponible</option>
-                      <option value="ocupado">Ocupado</option>
-                      <option value="mantenimiento">Mantenimiento</option>
-                  </select>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Serivicios Adicionales</label><span>
-                    <select id="cbServicios" class="form-select" name="tamano-camas">
-                        <option value="individual">Wifi</option>
-                    </select>
-                    <br>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Tipo de Habitacion</label>
-                    <select id="cbTipoHab" class="form-select" name="tamano-camas">
-                        <option value="individual">Doble</option>
-                    </select>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Empleado</label>
-                    <select id="cbEmpleado" class="form-select" name="tamano-camas">
-                        <option value="individual">Benjita</option>
-                    </select>
-                    <br>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Hotel</label>
-                    <select id="cdHotel" class="form-select" name="tamano-camas">
-                        <option value="individual">Hotel Veranum Sede Viña del Mar</option>
-                    </select>
+                    <div class="col-lg-4">
+                        <label class="form-label">Númnero Habitacion</label>
+                        <input id="numHabitacion" type="number" class="form-control" name="example-text-input"
+                            placeholder="Número de habitación">
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Cantidad de baños</label>
+                        <input id="numBanos" type="number" class="form-control" name="example-text-input"
+                            placeholder="Baños">
+                        <br>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Cantidad de camas</label>
+                        <input id="numCamas" type="number" class="form-control" name="example-text-input"
+                            placeholder="Camas">
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Tamaño de camas</label>
+                        <select id="cbTamano" class="form-select" name="tamano-camas">
+                            <option value="individual">Individual</option>
+                            <option value="matrimonial">Matrimonial</option>
+                            <option value="queen">Queen</option>
+                            <option value="king">King</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Capacidad</label>
+                        <input id="numCapacidad" type="number" class="form-control" name="example-text-input"
+                            placeholder="Cantidad de personas Max.">
+                        <br>
+                    </div>
+                    <div class="col-lg-5">
+                        <label class="form-label">Precio</label>
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-text">
+                                $
+                            </span>
+                            <input id="numPrecio" type="number" class="form-control" name="example-text-input"
+                                placeholder="Precio">
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-lg-7">
+                        <label class="form-label">Estado de la Habitacion</label>
+                        <select id="cbEstado" class="form-select" name="estado-habitacion">
+                            <option value="disponible">Disponible</option>
+                            <option value="ocupado">Ocupado</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Serivicios Adicionales</label><span>
+                            <select id="cbServicios" class="form-select" name="tamano-camas">
+                                <option value="individual">Wifi</option>
+                            </select>
+                            <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Tipo de Habitacion</label>
+                        <select id="cbTipoHab" class="form-select" name="tamano-camas">
+                            <option value="individual">Doble</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Empleado</label>
+                        <select id="cbEmpleado" class="form-select" name="tamano-camas">
+                            <option value="individual">Benjita</option>
+                        </select>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Hotel</label>
+                        <select id="cdHotel" class="form-select" name="hotelId">
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12">
-              <div>
-                <label class="form-label">Informacion Adicional</label>
-                <textarea id="taAdicional" class="form-control" rows="3"></textarea>
-              </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <label class="form-label">Informacion Adicional</label>
+                            <textarea id="taAdicional" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </a>
+                <button id="btAgregar" class="btn btn-primary" onclick="agregarHabitacion()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M5 12l14 0" />
+                    </svg>
+                    Agregar Habitacion
+                </button>
+                </a>
+            </div>
         </div>
-        <div class="modal-footer">
-          <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-            Cancelar
-          </a>
-          <button id="btAgregar" class="btn btn-primary" onclick="agregarHabitacion()">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-              Agregar Habitacion
-            </button>
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/static/js/habitacion.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         listarHabitaciones();
     });
 
@@ -190,29 +211,29 @@
             type: "GET",
             url: url_api + lo_path,
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 const tbody = $('#habitacion-table tbody');
                 tbody.empty(); // Limpiar el contenido anterior
 
                 data.forEach((habitacion, index) => {
                     const row = `
                         <tr>
-                            <td class="div-table-cell">${habitacion.id_habitacion}</td>
-                            <td class="div-table-cell">${habitacion.numero_habitacion}</td>
-                            <td class="div-table-cell">${habitacion.cant_banos}</td>
-                            <td class="div-table-cell">${habitacion.cant_camas}</td>
-                            <td class="div-table-cell">${habitacion.tamano_camas}</td>
-                            <td class="div-table-cell">${habitacion.cant_personas_disp}</td>
+                            <td class="div-table-cell">${habitacion.idHabitacion}</td>
+                            <td class="div-table-cell">${habitacion.numeroHabitacion}</td>
+                            <td class="div-table-cell">${habitacion.cantBanos}</td>
+                            <td class="div-table-cell">${habitacion.cantCamas}</td>
+                            <td class="div-table-cell">${habitacion.tamanoCamas}</td>
+                            <td class="div-table-cell">${habitacion.cantPersonasDisp}</td>
                             <td class="div-table-cell">${habitacion.precio}</td>
-                            <td class="div-table-cell">${habitacion.estado_habitacion}</td>
-                            <td class="div-table-cell"><button class="btn btn-primary" onclick="actualizarHabitacion(${habitacion.id_habitacion})">Actualizar</button></td>
-                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarHabitacion(${habitacion.id_habitacion})">Eliminar</button></td>
+                            <td class="div-table-cell">${habitacion.estadoHabitacion}</td>
+                            <td class="div-table-cell"><button class="btn btn-primary" onclick="actualizarHabitacion(${habitacion.idHabitacion})">Actualizar</button></td>
+                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarHabitacion(${habitacion.idHabitacion})">Eliminar</button></td>
                         </tr>
                     `;
                     tbody.append(row);
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error al obtener las habitaciones:', error);
             }
         });
@@ -221,9 +242,9 @@
     function buscarHabitacion() {
         const searchValue = $('#buscarHabitacion').val().toLowerCase();
 
-        $('#habitacion-table tbody tr').each(function() {
-            const id_habitacion = $(this).find('td:nth-child(2)').text().toLowerCase();
-            if (id_habitacion.includes(searchValue)) {
+        $('#habitacion-table tbody tr').each(function () {
+            const idHabitacion = $(this).find('td:nth-child(2)').text().toLowerCase();
+            if (idHabitacion.includes(searchValue)) {
                 $(this).show();
             } else {
                 $(this).hide();
@@ -231,17 +252,17 @@
         });
     }
 
-    function eliminarHabitacion(id_habitacion) {
+    function eliminarHabitacion(idHabitacion) {
         // Mostrar una alerta de confirmación
         if (confirm('¿Está seguro de que desea eliminar esta habitación?')) {
             $.ajax({
                 type: "DELETE",
-                url: url_api + lo_path + id_habitacion, // Suponiendo que el endpoint DELETE es /habitacion/{id_habitacion}
-                success: function(response) {
+                url: url_api + lo_path + idHabitacion, // Suponiendo que el endpoint DELETE es /habitacion/{idHabitacion}
+                success: function (response) {
                     alert('Habitación eliminada correctamente');
                     listarHabitaciones(); // Actualizar la lista después de la eliminación
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error al eliminar la habitación:', error);
                     alert('Error al eliminar la habitación');
                 }
@@ -249,9 +270,8 @@
         }
     }
 
+
+    
 </script>
 
 {%endblock%}
-
-
-

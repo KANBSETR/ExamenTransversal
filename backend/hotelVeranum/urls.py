@@ -6,4 +6,6 @@ from hotelVeranum import views
 urlpatterns = [
     path('habitacion/', views.HabitacionList.as_view(), name='habitacion-list'),
     path('habitacion/<int:pk>/', views.HabitacionDetail.as_view(), name='habitacion-detail'),
+    path('', views.api_root, name='api_root'),
 ]
+
