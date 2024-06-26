@@ -97,3 +97,113 @@ function eliminar() {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Establecer la fecha mínima de inicio como la fecha actual
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('startDate').setAttribute('min', today);
+    document.getElementById('endDate').setAttribute('min', today);
+});
+
+document.getElementById('startDate').addEventListener('change', function () {
+    const startDate = new Date(this.value);
+    startDate.setDate(startDate.getDate() + 1);
+    const minEndDate = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').setAttribute('min', minEndDate);
+});
+
+function calculateTotal() {
+    // Obtener los valores de las fechas y el precio por día
+    const startDate = new Date(document.getElementById('startDate').value);
+    const endDate = new Date(document.getElementById('endDate').value);
+    const pricePerDay = 70000;
+
+    // Validar que las fechas sean válidas
+    if (isNaN(startDate) || isNaN(endDate)) {
+        document.getElementById('mensaje').innerText = 'Por favor, ingrese fechas válidas.';
+        document.getElementById('result').innerText = '';
+        return;
+    }
+
+    // Validar que la fecha de inicio no sea anterior a la fecha actual
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);  // Asegurarse de que no haya diferencias por la hora del día
+    if (startDate < today) {
+        document.getElementById('mensaje').innerText = 'La fecha de inicio no puede ser anterior a la fecha actual.';
+        document.getElementById('result').innerText = '';
+        return;
+    }
+
+    // Validar que la fecha de término no sea anterior a la fecha de inicio
+    if (endDate <= startDate) {
+        document.getElementById('mensaje').innerText = 'La fecha de término debe ser posterior a la fecha de inicio.';
+        document.getElementById('result').innerText = '';
+        return;
+    }
+
+    // Validar que el precio por día sea válido
+    if (isNaN(pricePerDay) || pricePerDay <= 0) {
+        document.getElementById('mensaje').innerText = 'Por favor, ingrese un precio por día válido.';
+        document.getElementById('result').innerText = '';
+        return;
+    }
+
+    const tiempo = endDate - startDate;
+
+    // Calcular la diferencia en días
+    const dias = tiempo / (1000 * 3600 * 24);
+
+    // Calcular el total
+    const totalPrecio = dias * pricePerDay;
+
+    // Mostrar el resultado
+    document.getElementById('result').innerText = `El costo total de la reserva es: $${totalPrecio.toFixed(2)}`;
+    document.getElementById('mensaje').innerText = '';
+
+    calculateTotal();
+}
