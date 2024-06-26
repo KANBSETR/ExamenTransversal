@@ -85,15 +85,15 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-2">
-                        <label class="form-label">ID Habitacion</label>
-                        <input id="idHabitacion" type="number" class="form-control" name="example-text-input"
-                            placeholder="ID">
-                    </div>
                     <div class="col-lg-4">
                         <label class="form-label">Númnero Habitacion</label>
                         <input id="numHabitacion" type="number" class="form-control" name="example-text-input"
                             placeholder="Número de habitación">
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Cantidad de Dormitorios</label>
+                        <input id="cantDormitorio" type="number" class="form-control" name="example-text-input"
+                            placeholder="Cant. Dormitorios">
                     </div>
                     <div class="col-lg-4">
                         <label class="form-label">Cantidad de baños</label>
@@ -108,13 +108,10 @@
                         <br>
                     </div>
                     <div class="col-lg-6">
-                        <label class="form-label">Tamaño de camas</label>
-                        <select id="cbTamano" class="form-select" name="tamano-camas">
-                            <option value="individual">Individual</option>
-                            <option value="matrimonial">Matrimonial</option>
-                            <option value="queen">Queen</option>
-                            <option value="king">King</option>
-                        </select>
+                        <label class="form-label">Tamaño camas</label>
+                        <input id="numTamano" type="number" class="form-control" name="example-text-input"
+                            placeholder="Tamaño de las camas +">
+                        <br>
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Capacidad</label>
@@ -133,40 +130,35 @@
                         </div>
                         <br>
                     </div>
-                    <div class="col-lg-7">
-                        <label class="form-label">Estado de la Habitacion</label>
-                        <select id="cbEstado" class="form-select" name="estado-habitacion">
-                            <option value="disponible">Disponible</option>
-                            <option value="ocupado">Ocupado</option>
-                            <option value="mantenimiento">Mantenimiento</option>
-                        </select>
+                    <div class="col-lg-6">
+                        <label class="form-label">Estado de la habitacion</label>
+                        <input id="txEstado" type="text" class="form-control" name="example-text-input"
+                            placeholder="Disponible // No Disponible +">
                         <br>
                     </div>
                     <div class="col-lg-6">
-                        <label class="form-label">Serivicios Adicionales</label><span>
-                            <select id="cbServicios" class="form-select" name="tamano-camas">
-                                <option value="individual">Wifi</option>
-                            </select>
-                            <br>
+                        <label class="form-label">Servicio Adicional</label>
+                        <input id="txServicio" type="text" class="form-control" name="example-text-input"
+                            placeholder="ID Servicios Adicionales +">
+                        <br>
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Tipo de Habitacion</label>
-                        <select id="cbTipoHab" class="form-select" name="tamano-camas">
-                            <option value="individual">Doble</option>
-                        </select>
+                        <input id="numTipo" type="text" class="form-control" name="example-text-input"
+                            placeholder="ID Tipo Habitacion +">
+                        <br>
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Empleado</label>
-                        <select id="cbEmpleado" class="form-select" name="tamano-camas">
-                            <option value="individual">Benjita</option>
-                        </select>
+                        <input id="numEmpleado" type="text" class="form-control" name="example-text-input"
+                            placeholder="ID Empleado +">
                         <br>
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Hotel</label>
-                        <select id="cdHotel" class="form-select" name="hotelId">
-                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
-                        </select>
+                        <input id="numHotel" type="text" class="form-control" name="example-text-input"
+                            placeholder="ID Hotel +">
+                        <br>
                     </div>
                 </div>
             </div>
@@ -205,7 +197,6 @@
 <script>
     $(document).ready(function () {
         listarHabitaciones();
-        listarHoteles();
     });
 
     function listarHabitaciones() {
@@ -237,25 +228,6 @@
             },
             error: function (xhr, status, error) {
                 console.error('Error al obtener las habitaciones:', error);
-            }
-        });
-    }
-
-    function listarHoteles() {
-        $.ajax({
-            type: "GET",
-            url: url_api + '/hotel',
-            dataType: "json",
-            success: function (data) {
-                const select = $('#cdHotel');
-                select.empty(); // Limpiar el contenido anterior
-                data.forEach((hotel) => {
-                    const option = `<option value="${hotel.idHotel}">${hotel.nombreHotel}</option>`;
-                    select.append(option);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error('Error al obtener los hoteles:', error);
             }
         });
     }

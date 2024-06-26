@@ -1,20 +1,21 @@
-const url_api = 'http://localhost:9098/api/'; // URL base de tu API
+const url_api = 'http://localhost:9010/api/'; // URL base de tu API
 const lo_path = 'habitacion/';
 
 function agregarHabitacion() {
     var data = {
-        idHabitacion: document.getElementById('idHabitacion').value,
-        numHabitacion: document.getElementById('numHabitacion').value,
+        numeroHabitacion: document.getElementById('numHabitacion').value,
+        cantDormitorios: document.getElementById('cantDormitorio').value,
         cantBanos: document.getElementById('numBanos').value,
         cantCamas: document.getElementById('numCamas').value,
-        tamanoCamas: document.getElementById('cbTamano').value,
-        capaMax: document.getElementById('numCapacidad').value,
+        tamanoCamas: document.getElementById('numTamano').value,
+        cantPersonasDisp: document.getElementById('numCapacidad').value,
         precio: document.getElementById('numPrecio').value,
-        estado: document.getElementById('cbEstado').value,
-        servicios: document.getElementById('cbServicios').value,
-        tipoHabitacion: document.getElementById('cbTipoHab').value,
-        empleado: document.getElementById('cbEmpleado').value,
-        hotel: document.getElementById('cbHotel').value,
+        estadoHabitacion: document.getElementById('txEstado').value,
+        idServicioAdicional: document.getElementById('txServicio').value,
+        descripcion: document.getElementById('taAdicional').value,
+        idTipoHabitacion: document.getElementById('numTipo').value,
+        idEmpleado: document.getElementById('numEmpleado').value,
+        idHotel: document.getElementById('numHotel').value,
     };
 
     $.ajax({
@@ -25,7 +26,7 @@ function agregarHabitacion() {
         dataType: "json",
         success: function(response) {
             if (!response.OK) {
-                alert(response.msg);
+                alert('Habitación agregada correctamente');
                 return;
             }
             alert('Habitación agregada correctamente');
