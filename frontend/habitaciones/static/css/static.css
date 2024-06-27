@@ -1,0 +1,27 @@
+.invalid {
+    border: 1px solid red;
+    background-color: #ffcccc;
+  }
+  .required {
+    color: red;
+  }
+
+  .search-container {
+    max-width: 400px; /* Ajusta esto según tus necesidades */
+    margin: auto; /* Centra el contenedor */
+    padding: 10px; /* Espacio alrededor del input */
+}
+
+.search-input {
+    width: 100%; /* Hace que el input ocupe todo el ancho del contenedor */
+    padding: 10px; /* Espacio dentro del input */
+    border: 1px solid #ccc; /* Borde ligero */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra sutil para darle profundidad */
+    outline: none; /* Remueve el borde al enfocar */
+    font-size: 16px; /* Tamaño de texto */
+}
+
+.search-input:focus {
+    border-color: #007bff; /* Cambia el color del borde al enfocar */
+}

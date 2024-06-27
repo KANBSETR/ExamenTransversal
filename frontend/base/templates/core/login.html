@@ -39,14 +39,14 @@
               <h2 class="h2 text-center mb-4">Inicio de Sesion</h2>
               <form action="./" method="get" autocomplete="off" novalidate>
                 <div class="mb-3">
-                  <label class="form-label">Correo</label>
+                  <label class="form-label">Correo</label> <!-- Permite gmail, outlook, o hotmail.  -->
                   <input type="email" class="form-control" placeholder="ejemplo@ejemplo.com" autocomplete="off">
                 </div>
                 <div class="mb-2">
                   <label class="form-label">
-                    Contraseña
+                    Contraseña <!-- Minimo 8 caracteres, un caracter en mayuscula, uno en miniscula y numeros. Con la opcion de usar simbolos.  -->
                     <span class="form-label-description">
-                      <a href="./forgot-password.html">¿Olvidó la contraseña?</a>
+                      <a href="{% url 'contraseñaOlvidada' %}">¿Olvidó la contraseña?</a>
                     </span>
                   </label>
                   <div class="input-group input-group-flat">
@@ -71,12 +71,13 @@
             </div>
           </div>
           <div class="text-center text-secondary mt-3">
-            ¿No tienes cuenta? Registrate! <a href="/registro" tabindex="-1">Aqui</a>
+            ¿No tienes cuenta? Registrate! <a href="{% url 'registro' %}" tabindex="-1">Aqui</a>
           </div>
         </div>
     </div>
     <script src="/static/js/tabler.min.js?1692870487" defer></script>
     <script src="/static/js/demo.min.js?1692870487" defer></script>
+    <script src="/static/js/js-autenticacion/inicioSesion.js"></script>
 </body>
 </html>
 {% endblock %}

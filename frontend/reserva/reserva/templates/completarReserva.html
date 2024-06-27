@@ -1,0 +1,30 @@
+{%extends 'inicioBase.html'%}
+{%block content%}
+<div class="page page-center">
+    <div class="container container-tight py-4">
+        <div class="card card-md">
+            <div class="card-body">
+                <h2 class="h2 text-center mb-4">Ingrese su fecha de Estadía</h2>
+                <form id="dateForm">
+                    <label for="startDate">Fecha de Inicio:</label>
+                    <input type="date" id="startDate" name="startDate" onchange="calculateTotal()" required>
+                    <br><br>
+                    <label for="endDate">Fecha de Término:</label>
+                    <input type="date" id="endDate" name="endDate" onchange="calculateTotal()" required>
+                    <br><br>
+                    
+                </form>
+                <br>
+                <strong id="result"></strong>
+                <span id="mensaje"></span>
+                
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary" onclick="window.location.href='/reserva/pagoCompletado'">Completar Reserva</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/reserva.js"></script>
+{%endblock%}
