@@ -248,10 +248,9 @@ class Reserva(models.Model):
     idReserva = models.AutoField(primary_key=True)
     fechaInicio = models.DateTimeField()
     fechaTermino = models.DateTimeField()
-    cantPersonas = models.IntegerField()
+    precioReserva = models.IntegerField()
     estado = models.BooleanField()
     idHabitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
-    idHotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     idUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fCreacion = models.DateTimeField(auto_now_add=True, auto_now=False)
 
