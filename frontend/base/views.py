@@ -12,3 +12,6 @@ def inicioSesion(request):
 
 def registro(request):
     return render(request, 'registro.html')
+
+def contraseñaOlvidada(request):
+    return render(request, 'contraOlvidada.html')

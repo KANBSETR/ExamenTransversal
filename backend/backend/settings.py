@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,8 +40,34 @@ INSTALLED_APPS = [
     'corsheaders',
     'hotelVeranum.apps.HotelveranumConfig',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
+#SECURE_SSL_REDIRECT = True
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+}
+
+#Quitar comentarios cuando se aplique la autentificacion
+
+#REST_FRAMEWORK = {
+#    'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'rest_framework_simplejwt.authentication.JWTAuthentication',
+#    ),
+    #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAuthenticated',
+    #),
+  
+#}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    #'TOKEN_OBTAIN_SERIALIZER': "venta.serializers.MyTokenObtainPairSerializer",
+}
 MIDDLEWARE = [
     'backend.middleware.CORSMiddleware',
     'django.middleware.common.CommonMiddleware',

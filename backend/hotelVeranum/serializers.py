@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from django.contrib.auth.hashers import make_password
 class RegionSerializer (serializers.ModelSerializer):
     class Meta:
         model = Region
@@ -30,11 +30,20 @@ class PersonaSerializer (serializers.ModelSerializer):
     class Meta:
         model = Persona
         fields = '__all__'
-
-class UsuarioSerializer (serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
-        fields = '__all__'
+        model = Usuario #, 'nombre'
+        fields = ('idUsuario', 'usuario', 'correo', 'contrasena')
+        extra_kwargs = {'contrasena': {'write_only': True}}
+
+    def create(self, validated_data):
+        validated_data['contrasena'] = make_password(validated_data.get('contrasena'))
+        return super(UsuarioSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance.contrasena = make_password(validated_data.get('contrasena', instance.contrasena))
+        instance.save()
+        return instance
 
 class EmpleadoSerializer (serializers.ModelSerializer):
     class Meta:
@@ -69,4 +78,14 @@ class HabitacionSerializer (serializers.ModelSerializer):
 class ReservaSerializer (serializers.ModelSerializer):
     class Meta:
         model = Reserva
+        fields = '__all__'
+        
+class InventarioSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = HotelDetalle
+        fields = '__all__'
+        
+class EventosSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Eventos
         fields = '__all__'

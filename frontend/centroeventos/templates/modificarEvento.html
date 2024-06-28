@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>{{evento.idEvento}}</h1>
+    {{error}}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Actualizar
+        </button>
+    </form>
+<form action="{% url 'evento_delete' evento.idEvento%}">
+    <button>
+        Eliminar
+    </button>
+</form>
+{%endblock%}

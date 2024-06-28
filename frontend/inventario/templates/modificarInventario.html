@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1>{{inventario.id_hotel_detalle}}</h1>
+                {{error}}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button>
+                        Actualizar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
