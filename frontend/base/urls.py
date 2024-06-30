@@ -7,4 +7,7 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
     path('about/', views.about, name='about'),
     path('contraseñaOlvidada/', views.contraseñaOlvidada, name='contraseñaOlvidada'),
+    
+    path('usuarios/', views.usuarios, name='usuarios'),
+    path('modalActualizarUsuarios/', views.modalActualizarUsuarios, name='modalActualizarUsuarios'),
 ]

@@ -217,9 +217,6 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/static/js/habitacion.js"></script>
-<script src="/static/js/cargarDatos.js"></script>
-<script src="/static/js/validacionDatos.js"></script>
 <script>
     $(document).ready(function () {
         listarHabitaciones();
@@ -245,7 +242,9 @@
                             <td class="div-table-cell">${habitacion.cantPersonasDisp}</td>
                             <td class="div-table-cell">${habitacion.precio}</td>
                             <td class="div-table-cell">${habitacion.estadoHabitacion}</td>
-                            <td class="div-table-cell"><button class="btn btn-primary" onclick="actualizarHabitacion(${habitacion.idHabitacion})">Actualizar</button></td>
+                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">
+                                    Actualizar
+                                </button></td>
                             <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarHabitacion(${habitacion.idHabitacion})">Eliminar</button></td>
                         </tr>
                     `;
@@ -257,10 +256,6 @@
             }
         });
     }
-
-
-
-
 
     function buscarHabitacion() {
         const searchValue = $('#buscarHabitacion').val().toLowerCase();
@@ -331,6 +326,10 @@
     }
 
 
+    function modificar() {
+            // Redirigir a la página de actualización sin ID
+            window.location.href = 'actualizar/';
+        }
     
 </script>
 

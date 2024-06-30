@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="form-footer">
-        <button type="submit" class="btn btn-warning w-100">Registrarse</button>
+        <button type="submit" class="btn btn-warning w-100" id="btRegistrarse">Registrarse</button>
       </div>
     </div>
   </form>
@@ -39,5 +39,6 @@
     ¿Ya tienes cuenta? <a href="{% url 'inicioSesion' %}" tabindex="-1">Inicia Sesion</a>
   </div>
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/static/js/js-autenticacion/registro.js"></script>
 {%endblock%}

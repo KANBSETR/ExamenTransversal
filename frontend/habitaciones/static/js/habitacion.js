@@ -1,4 +1,4 @@
-const url_api = 'http://localhost:9010/api/'; // URL base de tu API
+const url_api = 'http://localhost:9098/api/'; // URL base de tu API
 const lo_path = 'habitacion/';
 
 function agregarHabitacion() {

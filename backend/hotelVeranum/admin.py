@@ -75,4 +75,4 @@ class EventosAdmin(admin.ModelAdmin):
     
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ['idReserva','fechaInicio','fechaTermino','cantPersonas','estado','idHabitacion','idUsuario','idHotel']
+    list_display = ['idReserva','fechaInicio','fechaTermino','estado','idHabitacion','idUsuario']

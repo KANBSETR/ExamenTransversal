@@ -1,0 +1,333 @@
+{%extends 'baseAdmin.html'%}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <button class="btn btn-primary" onclick="buscarHabitacion()">
+                            Buscar
+                        </button>
+                        <input id="buscarHabitaciones" class="search-input" type="text" placeholder="Buscar"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label class="form-label">Númnero Habitacion <span class="required">*</span> </label>
+                            <input id="numeroHabitacion" type="number" class="form-control" name="example-text-input"
+                                min="100" placeholder="Número de habitación" required>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label">Cantidad dormitorios <span class="required">*</span> </label>
+                            <input id="cantDormitorios" type="number" class="form-control" name="example-text-input"
+                                min="1" max="12" placeholder="Cantidad de dormitorios" required>
+                            <br>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label">Cantidad de baños <span class="required">*</span> </label>
+                            <input id="numBanos" type="number" class="form-control" name="example-text-input"
+                                min="1" max="6" placeholder="Baños" required>
+                            <br>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label">Cantidad de camas <span class="required">*</span> </label>
+                            <input id="numCamas" type="number" class="form-control" name="example-text-input"
+                                max="8" placeholder="Camas" required>
+                            <br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Tamaño de camas <span class="required">*</span> </label>
+                            <select id="cbTamano" class="form-select" name="tamano-camas" required>
+                                <option value="">Seleccione el tamaño de la cama</option>
+                                <option value="individual">Individual</option>
+                                <option value="doble">Doble</option>
+                                <option value="queen">Queen</option>
+                                <option value="king">King</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Capacidad <span class="required">*</span> </label>
+                            <input id="cantPersonasDisp" type="number" class="form-control" name="example-text-input"
+                               min="1" max="10" placeholder="Cantidad de personas Max." required>
+                            <br>
+                        </div>
+                        <div class="col-lg-5">
+                            <label class="form-label">Precio <span class="required">*</span> </label>
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-text">
+                                    $
+                                </span>
+                                <input id="numPrecio" type="number" class="form-control" name="example-text-input"
+                                    min="50.000" placeholder="Precio" required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-lg-7">
+                            <label class="form-label">Estado de la Habitacion <span class="required">*</span> </label>
+                            <select id="cbEstado" class="form-select" name="estado-habitacion" required>
+                                <option value="">Seleccione el estado</option>
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupada">Ocupada</option>
+                                <option value="limpieza">En Limpieza</option>
+                                <option value="mantenimiento">En Mantenimiento</option>
+                                <option value="reserva">En Reserva</option>
+                                <option value="tiempoLimitado">Oferta por Tiempo Limitado</option>
+                                <option value="oportunidadUnica">Oportunidad Única</option>
+                                <option value="promocion">En Promoción</option>
+                                <option value="exclusiva">Habitación Exclusiva</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Serivicios Adicionales <span class="required">*</span> </label><span>
+                                <select id="cbServicios" class="form-select" name="tamano-camas" required>
+                                </select>
+                                <br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Tipo de Habitacion <span class="required">*</span> </label>
+                            <select id="cbTipoHab" class="form-select" name="tamano-camas" required>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Empleado <span class="required">*</span></label>
+                            <select id="cbEmpleado" class="form-select" name="tamano-camas" required>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">Hotel <span class="required">*</span> </label>
+                            <select id="cbHotel" class="form-select" name="hotelId" required>
+                                <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label class="form-label">Descripción <span class="required">*</span> </label>
+                            <textarea id="txtDescripcion" class="form-control" name="example-textarea-input" rows="6"
+                                placeholder="Descripción de la habitación" required></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" onclick="modificarHabitacion()">Modificar Habitación</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+var url_api = 'http://localhost:9098/api/';
+var lo_path = 'habitacion/';
+
+
+function buscarHabitacion() {
+    var idHabitacion = $('#buscarHabitaciones').val(); // Obtener el valor del campo de texto de Rut
+    var pathUrl = url_api + lo_path + idHabitacion; // Construir la URL para la solicitud AJAX
+
+    // Realizar la solicitud AJAX usando jQuery
+    $.ajax({
+        type: "GET",
+        url: pathUrl,
+        dataType: "json",
+        beforeSend: function() {
+            console.log('Cargando información de la persona...'); // Mensaje de carga
+        },
+        success: function(response) {
+            console.log('Respuesta:', response); // Mostrar la respuesta en la consola
+
+            // Verificar si se recibió una respuesta válida
+            if (response && response.idHabitacion) {
+                // Asignar los valores recibidos a los campos del formulario
+                $('#buscarHabitaciones').val(response.idHabitacion);
+                $('#numeroHabitacion').val(response.numeroHabitacion);
+                $('#cantDormitorios').val(response.cantDormitorios);
+                $('#numBanos').val(response.cantBanos);
+                $('#numCamas').val(response.cantCamas);
+                $('#cbTamano').val(response.tamanoCamas);
+                $('#cantPersonasDisp').val(response.cantPersonasDisp);
+                $('#numPrecio').val(response.precio);
+                $('#cbEstado').val(response.estadoHabitacion);
+                $('#cbServicios').val(response.idServicioAdicional);
+                $('#cbTipoHab').val(response.idTipoHabitacion);
+                $('#cbEmpleado').val(response.idEmpleado);
+                $('#cbHotel').val(response.idHotel);
+            } else {
+                console.log('No se recibió una respuesta válida'); // Manejo de caso sin respuesta válida
+                limpiar(); // Llamar a la función limpiar() para restablecer los campos
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al obtener información de la habitacion:', error); // Manejo de errores
+            limpiar(); // Restablecer los campos en caso de error
+        }
+    });
+}
+
+// Función para limpiar los campos del formulario
+function limpiar() {
+    $('#txRut').val('');
+    $('#txDv').val('');
+    $('#txNombre').val('');
+    $('#txPApellido').val('');
+    $('#txSApellido').val('');
+    $('#txEmail').val('');
+    $('#cbComuna').val('');
+    $('#cbGenero').val('');
+    $('#txFechaNacimiento').val('');
+    $('#cbPais').val('');
+}
+
+
+
+function modificarHabitacion() {
+    var idHabitacion = document.getElementById('buscarHabitaciones').value;
+
+var data = {
+        numeroHabitacion: document.getElementById('numeroHabitacion').value,
+        cantDormitorios: document.getElementById('cantDormitorios').value,
+        cantBanos: document.getElementById('numBanos').value,
+        cantCamas: document.getElementById('numCamas').value,
+        tamanoCamas: document.getElementById('cbTamano').value,
+        cantPersonasDisp: document.getElementById('cantPersonasDisp').value,
+        precio: document.getElementById('numPrecio').value,
+        estadoHabitacion: document.getElementById('cbEstado').value,
+        idServicioAdicional: document.getElementById('cbServicios').value,
+        idTipoHabitacion: document.getElementById('cbTipoHab').value,
+        idEmpleado: document.getElementById('cbEmpleado').value,
+        idHotel: document.getElementById('cbHotel').value,
+};
+
+$.ajax({
+    type: "PUT",
+    url: url_api + lo_path + idHabitacion + "/",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    dataType: "json",
+    success: function(response) {
+        if (!response.OK) {
+            alert("Datos modificados");
+            return;
+        }
+        alert('Habitacion modificada correctamente');
+
+        // Después de modificar correctamente, cargar los datos actualizados
+        leer();
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+        console.log('Detalles del error:', xhr.responseText);
+        alert('Error al modificar libro: ' + xhr.responseText);
+    }
+});
+}
+
+
+function eliminar() {
+var rut = document.getElementById('txRut').value;
+
+$.ajax({
+    type: "DELETE",
+    url: url_api + lo_path + rut,
+    dataType: "json",
+    success: function(response) {
+        if (!response.OK) {
+            alert(response.msg);
+            return;
+        }
+        alert('Cliente eliminado correctamente');
+        limpiar();
+    },
+    error: function(xhr, status, error) {
+        console.error('Error:', error);
+        console.log('Detalles del error:', xhr.responseText);
+        alert('Error al eliminar cliente: ' + xhr.responseText);
+    }
+});
+}
+
+function limpiar() {
+document.getElementById('txRut').value = "";
+document.getElementById('txDv').value = "";
+document.getElementById('txNombre').value = "";
+document.getElementById('txPApellido').value = "";
+document.getElementById('txSApellido').value = "";
+document.getElementById('txEmail').value = "";
+document.getElementById('txFechaNacimiento').value = "";
+document.getElementById('cbPais').value = "";
+document.getElementById('cbComuna').value = "";
+document.getElementById('cbGenero').value = "";
+    document.getElementById('txRut').value = "";
+    document.getElementById('txDv').value = "";
+    document.getElementById('txNombre').value = "";
+    document.getElementById('txPApellido').value = "";
+    document.getElementById('txSApellido').value = "";
+    document.getElementById('txEmail').value = "";
+    document.getElementById('txFechaNacimiento').value = "";
+    document.getElementById('cbPais').value = "";
+    document.getElementById('cbComuna').value = "";
+    document.getElementById('cbGenero').value = "";
+}
+
+
+
+
+
+
+function actualizar() {
+    var rut = document.getElementById('txRut').value;
+    var data = {
+        rut: rut,
+        dv: document.getElementById('txDv').value,
+        nombre: document.getElementById('txNombre').value,
+        papellido: document.getElementById('txPApellido').value,
+        sapellido: document.getElementById('txSApellido').value,
+        email: document.getElementById('txEmail').value,
+        fechaNacimiento: document.getElementById('txFechaNacimiento').value,
+        pais: document.getElementById('cbPais').value,
+        comuna: document.getElementById('cbComuna').value,
+        genero: document.getElementById('cbGenero').value,
+    };
+
+    $.ajax({
+        type: "PUT",
+        url: url_api + lo_path + rut,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        success: function(response) {
+            if (!response.OK) {
+                alert(response.msg);
+                return;
+            }
+            alert('Cliente actualizado correctamente');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            console.log('Detalles del error:', xhr.responseText);
+            alert('Error al actualizar cliente: ' + xhr.responseText);
+        }
+    });
+}
+
+
+</script>
+{% endblock %}

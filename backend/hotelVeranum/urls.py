@@ -11,9 +11,6 @@ urlpatterns = [
     path('apix/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('apix/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
-    path('region/', views.RegionList.as_view(), name='region-list'),
-    path('region/<int:pk>/', views.RegionDetail.as_view(), name='region-detail'),
-    
     #Habitaciones
     path('habitacion/', views.HabitacionList.as_view(), name='habitacion-list'),
     path('habitacion/<int:pk>/', views.HabitacionDetail.as_view(), name='habitacion-detail'),
@@ -51,8 +48,8 @@ urlpatterns = [
     path('inventario/<int:pk>/', views.InventarioDetail.as_view(), name='inventario-detail'),
     
     #Eventos
-    path('evento/', views.EventoList.as_view(), name='evento-list'),
-    path('evento/<int:pk>/', views.EventoDetail.as_view(), name='evento-detail'),
+    path('evento/', views.EventosList.as_view(), name='evento-list'),
+    path('evento/<int:pk>/', views.EventosDetail.as_view(), name='evento-detail'),
     
 ]
 

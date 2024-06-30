@@ -1,0 +1,33 @@
+{%extends 'inicioBase.html'%}
+{%block content%}
+<div class="container container-tight py-4">
+  <div class="text-center mb-4">
+    <a href="/" class="navbar-brand navbar-brand-autodark">
+      <img src="/static/icon/logo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+      <span>Veranum</span>
+    </a>
+  </div>
+  <form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Recupera tu contraseña</h2>
+      <div class="mb-4">
+        <label class="form-label" for="usuario">Usuario</label>
+        <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="correo">Correo</label>
+        <input type="email" class="form-control" id="correo" placeholder="ejemplo@ejemplo.com">
+      </div>
+      <div class="form-footer">
+        <button type="submit" class="btn btn-warning w-100" id="btRegistrarse">Registrarse</button>
+      </div>
+      <h6 class="card-title text-center mb-3"> Le enviaremos un correo para restablecer su contraseña a partir de sus datos </h6>
+    </div>
+  </form>
+  <div class="text-center text-secondary mt-3">
+    ¿Ya tienes cuenta? <a href="{% url 'inicioSesion' %}" tabindex="-1">Inicia Sesion</a>
+  </div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/static/js/js-autenticacion/contrasenaOlvidada.js"></script>
+{%endblock%}

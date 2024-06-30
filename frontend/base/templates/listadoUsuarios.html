@@ -1,0 +1,248 @@
+{%extends 'baseAdmin.html'%}
+
+{%block content%}
+
+
+<!-- Ejemplo de modal en HTML principal -->
+<div id="modal-actualizar-usuario" class="modal">
+    <!-- Contenido del modal -->
+  </div>
+
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                            data-bs-target="#modal-agregar-usuario">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 5l0 14" />
+                                <path d="M5 12l14 0" />
+                            </svg>
+                            Agregar un nuevo usuario
+                        </a>
+                        <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
+                            data-bs-target="#modal-report" aria-label="Create new report">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 5l0 14" />
+                                <path d="M5 12l14 0" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="card-body">
+                    <div id="table-default" class="table-responsive">
+                        <div class="search-container">
+                            <input id="buscarUsuario" class="search-input" type="text" placeholder="Buscar"
+                                oninput="buscarUsuario()" />
+                        </div>
+                        <div id="no-results" class="text-center" style="display: none;">
+                            <p>No se encontraron resultados para su búsqueda.</p>
+                        </div>
+                        <table id="usuario-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th><button class="table-sort" data-sort="sort-quantity">#</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Nombre de usuario</button>
+                                    </th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Correo</button></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-tbody">
+                                <!--Se llena con JavaScript-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal modal-blur fade" id="modal-agregar-usuario" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="form-label">Nombre de usuario <span class="required">*</span> </label>
+                        <input id="usuario" type="text" class="form-control" name="example-text-input"
+                            placeholder="Usuario123" required>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Correo <span class="required">*</span> </label>
+                        <input id="correo" type="email" class="form-control" name="example-text-input"
+                            placeholder="ejemplo@gmail.com" required>
+                        <br>
+                    </div>
+                    <form>
+                        <div class="col-lg-4">
+                            <label class="form-label">Contraseña <span class="required">*</span> </label>
+                            <input id="contrasena" type="password" class="form-control" name="example-text-input"
+                                placeholder="contraseña1234" required>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </a>
+                <button id="btAgregar" class="btn btn-primary" onclick="agregarUsuario()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M5 12l14 0" />
+                    </svg>
+                    Agregar Usuario
+                </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/js-users-emp/usuarios.js"></script>
+
+<script>
+    $(document).ready(function () {
+        listarUsuarios();
+    });
+
+    function listarUsuarios() {
+        $.ajax({
+            type: "GET",
+            url: url_api + lo_path,
+            dataType: "json",
+            success: function (data) {
+                const tbody = $('#usuario-table tbody');
+                tbody.empty(); // Limpiar el contenido anterior
+
+                data.forEach((usuario, index) => {
+                    const row = `
+                        <tr>
+                            <td class="div-table-cell">${usuario.idUsuario}</td>
+                            <td class="div-table-cell">${usuario.usuario}</td>
+                            <td class="div-table-cell">${usuario.correo}</td>
+                            <td class="div-table-cell">${usuario.nombre ? usuario.nombre : ''}</td>                            
+                            <td class="div-table-cell"><button class="btn btn-primary btActualizar" data-id="${usuario.idUsuario}">Actualizar</button></td>                            
+                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarUsuario(${usuario.idUsuario})">Eliminar</button></td>
+                        </tr>
+                    `;
+                    tbody.append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error al obtener los usuarios:', error);
+            }
+        });
+    }
+
+
+
+
+
+    function buscarUsuario() {
+        const searchValue = $('#buscarUsuario').val().toLowerCase();
+        let found = false;
+
+        $('#usuario-table tbody tr').each(function () {
+            const row = $(this);
+            const idUsuario = row.find('td:nth-child(2)').text().toLowerCase();
+
+            if (idUsuario.includes(searchValue)) {
+                // Resaltar el texto buscado (opcional)
+                const highlighted = idUsuario.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
+                row.find('td:nth-child(2)').html(highlighted);
+
+                row.fadeIn(); // Animación suave para mostrar
+                found = true;
+            } else {
+                row.fadeOut(); // Animación suave para ocultar
+            }
+        });
+
+        // Mostrar mensaje si no se encontraron resultados
+        if (!found) {
+            $('#no-results').show();
+        } else {
+            $('#no-results').hide();
+        }
+    }
+
+    let typingTimer;
+    $('#buscarUsuario').on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(buscarUsuario, 500);
+    });
+
+
+    function eliminarUsuario(idUsuario) {
+        // Mostrar una alerta de confirmación con SweetAlert
+        swal({
+            title: "¿Estás seguro?",
+            text: "Estás a punto de eliminar un usuario. Esta acción no se puede revertir.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url_api + lo_path + idUsuario,
+                        success: function (response) {
+                            swal("Usuario eliminado correctamente", {
+                                icon: "success",
+                            });
+                            listarUsuarios(); // Actualizar la lista después de la eliminación
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al eliminar el usuario:', error);
+                            swal("Error al eliminar el usuario", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                } else {
+                    swal("El usuario no ha sido eliminado");
+                }
+            });
+    }
+
+
+
+</script>
+
+{%endblock%}

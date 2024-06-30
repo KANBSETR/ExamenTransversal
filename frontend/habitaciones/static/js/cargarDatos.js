@@ -25,7 +25,7 @@ function cargarDatosSelect(url, selectId, valueField, textField, defaultText = "
 
 $(document).ready(function() {
     // URL base de tu API
-    const url_api = 'http://localhost:9010/api/';
+    const url_api = 'http://localhost:9098/api/';
 
     // Llama a cargarDatosSelect con la URL completa formada por la URL base + path específico
     cargarDatosSelect(url_api + 'servicioAdicional', '#cbServicios', 'idServicioAdicional', 'nombre');
@@ -38,7 +38,7 @@ $(document).ready(function() {
 $('#btnGuardar').click(function() {
     const estadoHabitacion = $('#cbEstado').val();
     const tipoCama = $('#cbTamano').val();
-    const url_api = 'http://localhost:9010/api/habitacion/'; 
+    const url_api = 'http://localhost:9098/api/habitacion/'; 
 
     const datosHabitacion = {
         estado: estadoHabitacion,

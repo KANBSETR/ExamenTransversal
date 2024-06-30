@@ -15,3 +15,9 @@ def registro(request):
 
 def contraseñaOlvidada(request):
     return render(request, 'contraOlvidada.html')
+
+def usuarios(request):
+    return render(request, 'listadoUsuarios.html')
+
+def modalActualizarUsuarios(request):
+    return render(request, 'modalActualizarUsuarios.html')
