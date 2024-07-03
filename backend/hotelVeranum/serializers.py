@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class RegionSerializer (serializers.ModelSerializer):
     class Meta:
         model = Region
@@ -90,3 +90,14 @@ class EventosSerializer (serializers.ModelSerializer):
     class Meta:
         model = Eventos
         fields = '__all__'
+        
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        
+        # Customizar el token
+        token['nombre'] = user.username
+        token['contrasena'] = user.password
+        return token
+        

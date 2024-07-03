@@ -12,7 +12,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework import viewsets
-#from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 
 #JsonResponse de confirmacion
@@ -49,6 +49,8 @@ def habitacion(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class HabitacionList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         habitaciones = Habitacion.objects.all()
         serializer = HabitacionSerializer(habitaciones, many=True)
@@ -105,6 +107,8 @@ def reserva(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class ReservaList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         reservas = Reserva.objects.all()
         serializer = ReservaSerializer(reservas, many=True)
@@ -117,7 +121,7 @@ class ReservaList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class RegionViewSet(viewsets.ModelViewSet):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
 
@@ -161,6 +165,7 @@ def persona(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class PersonaList(APIView):
+    
     def get(self, request, format=None):
         personas = Persona.objects.all()
         serializer = PersonaSerializer(personas, many=True)
@@ -204,6 +209,8 @@ def usuario(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class UsuarioList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
@@ -323,47 +330,6 @@ class TipoHabitacionDetail(APIView):
 
 
 
-# ServicioAdicional ServicioAdicionalSerializer
-def servicioAdicional(request):
-    registro = ServicioAdicional.objects.all()
-    print("Registro", registro)
-    serializer = ServicioAdicionalSerializer(registro, many=True)
-    return JSONResponseOkRows(serializer.data, "")
-
-class ServicioAdicionalList(APIView):
-    def get(self, request, format=None):
-        servicioAdicionales = ServicioAdicional.objects.all()
-        serializer = ServicioAdicionalSerializer(servicioAdicionales, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = ServicioAdicionalSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ServicioAdicionalDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return ServicioAdicional.objects.get(pk=pk)
-        except ServicioAdicional.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        servicioAdicional = self.get_object(pk)
-        serializer = ServicioAdicionalSerializer(servicioAdicional)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        servicioAdicional = self.get_object(pk)
-        serializer = ServicioAdicionalSerializer(servicioAdicional, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 # Hotel HotelSerializer
 
 def hotel(request):
@@ -415,6 +381,8 @@ def eventos(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class EventosList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         eventos = Eventos.objects.all()
         serializer = EventosSerializer(eventos, many=True)
@@ -461,6 +429,8 @@ def servicioAdicional(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class ServicioAdicionalList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         servicio = ServicioAdicional.objects.all()
         serializer = ServicioAdicionalSerializer(servicio, many=True)
@@ -507,6 +477,8 @@ def inventario(request):
     return JSONResponseOkRows(serializer.data, "")
 
 class InventarioList(APIView):
+    # Permisos
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         inventarios = HotelDetalle.objects.all()
         serializer = InventarioSerializer(inventarios, many=True)
