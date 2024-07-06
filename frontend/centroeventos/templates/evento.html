@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'baseAdmin.html'%}
 
 {%block content%}
 
@@ -9,7 +9,8 @@
                 <!-- Page title actions -->
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="/eventos/registrarEvento/" class="btn btn-primary d-none d-sm-inline-block">
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                            data-bs-target="#modal-agregar-evento">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -18,7 +19,7 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                            Agregar un evento
+                            Agregar un Evento
                         </a>
                         <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
@@ -41,52 +42,34 @@
             <div class="card">
                 <div class="card-body">
                     <div id="table-default" class="table-responsive">
-                        <table class="table">
+                        <div class="search-container">
+                            <input id="buscarEvento" class="search-input" type="text" placeholder="Buscar"
+                                oninput="buscarEvento()" />
+                        </div>
+                        <div id="no-results" class="text-center" style="display: none;">
+                            <p>No se encontraron resultados para su búsqueda.</p>
+                        </div>
+                        <table id="evento-table" class="table">
                             <thead>
                                 <tr>
-                                    <th><button class="table-sort" data-sort="sort-quantity">ID Evento</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Nombre evento</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Fecha inicio del
-                                            evento</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Fecha termino del
-                                            evento</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Descripcion</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Precio</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">#</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Nombre de Evento</button>
+                                    </th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Fecha Inicio
+                                            Evento</button>
+                                    </th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Fecha Termino
+                                            Evento</button>
+                                    </th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Descripción</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Precio</button>
+                                    </th>
                                     <th><button class="table-sort" data-sort="sort-quantity">Estado</button></th>
-                                    <th> </th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table-tbody">
-                                {% for evento in eventos %}
-                                <tr>
-                                    <td class="sort-quantity">{{evento.idEvento }}</td>
-                                    <td class="sort-quantity">{{evento.nombre }}</td>
-                                    <td class="sort-quantity">{{ evento.fechaInicio }}</td>
-                                    <td class="sort-quantity">{{ evento.fechaTermino }}</td>
-                                    <td class="sort-quantity">{{ evento.descripcion }}</td>
-                                    <td class="sort-quantity">{{ evento.precio}}</td>
-                                    <td class="sort-quantity">{{ evento.estado }}</td>
-                                    <td>
-                                        <a href="{% url 'evento_detail' evento.idEvento%}" class="btn btn-success">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-                                                <path d="M13.5 6.5l4 4" />
-                                              </svg>
-                                        </a>
-                                        <a href="{% url 'evento_delete' evento.idEvento%}" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M4 7l16 0" />
-                                            <path d="M10 11l0 6" />
-                                            <path d="M14 11l0 6" />
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                          </svg></a>
-                                    </td>
-
-
-                                </tr>
-                                {% endfor %}
+                                <!--Se llena con JavaScript-->
                             </tbody>
                         </table>
                     </div>
@@ -96,6 +79,227 @@
     </div>
 </div>
 
+<div class="modal modal-blur fade" id="modal-agregar-evento" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Evento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-4">
+                    <label class="form-label">Nombre del Evento <span class="required">*</span> </label>
+                    <input id="txNombreEvento" type="text" class="form-control" name="example-text-input"
+                        placeholder="Nombre del evento" required> <br>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Fecha de inicio del evento <span class="required">*</span> </label>
+                        <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input"
+                            required>
+                    </div>
+                    <br>
+                    <div class="col-lg-6">
+                        <label class="form-label">Fecha de termino del evento <span class="required">*</span> </label>
+                        <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input" required>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label">Precio<span class="required">*</span> </label>
+                    <div class="input-group input-group-flat">
+                        <span class="input-group-text">
+                            $
+                        </span>
+                        <input id="numPrecio" type="number" class="form-control" name="example-text-input"
+                               value="500.000" min="500.000" placeholder="Precio" required>
+                    </div>
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Estado del Evento<span class="required">*</span> </label>
+                        <select id="cbEstado" class="form-select" name="estado-evento" required>
+                            <option value="">Seleccione el estado</option>
+                            <option value="disponible">Disponible</option>
+                            <option value="mantenimiento">En Mantenimiento</option>
+                            <option value="no-disponible">No Disponible</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Empleado<span class="required">*</span></label>
+                        <select id="cbEmpleado" class="form-select" name="tamano-camas" required>
+                        </select>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Forma de Pago<span class="required">*</span></label>
+                        <select id="cbPago" class="form-select" name="tamano-camas" required>
+                        </select>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Hotel<span class="required">*</span> </label>
+                        <select id="cbHotel" class="form-select" name="hotelId" required>
+                            
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Usuario<span class="required">*</span></label>
+                    <select id="cbUsuario" class="form-select" name="tamano-camas" required>
+                    </select>
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <label class="form-label">Descripcion del Evento</label>
+                            <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </a>
+                <button id="btAgregar" class="btn btn-primary" onclick="agregarEvento()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M5 12l14 0" />
+                    </svg>
+                    Agregar Evento
+                </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/eventos.js"></script>
+<script>
+    $(document).ready(function () {
+        listarEventos();
+    });
+
+    function listarEventos() {
+        $.ajax({
+            type: "GET",
+            url: url_api + lo_path,
+            dataType: "json",
+            success: function (data) {
+                const tbody = $('#evento-table tbody');
+                tbody.empty(); // Limpiar el contenido anterior
+
+                data.forEach((evento, index) => {
+                    const row = `
+                        <tr>
+                            <td class="div-table-cell">${evento.idEvento}</td>
+                            <td class="div-table-cell">${evento.nombre}</td>
+                            <td class="div-table-cell">${evento.fechaInicio}</td>
+                            <td class="div-table-cell">${evento.fechaTermino}</td>
+                            <td class="div-table-cell">${evento.descripcion}</td>
+                            <td class="div-table-cell">${evento.precio}</td>
+                            <td class="div-table-cell">${evento.estado}</td>
+                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">
+                                    Actualizar
+                                </button></td>
+                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarEvento(${evento.idEvento})">Eliminar</button></td>
+                        </tr>
+                    `;
+                    tbody.append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error al obtener los eventos:', error);
+            }
+        });
+    }
+
+    function buscarEvento() {
+        const searchValue = $('#buscarEvento').val().toLowerCase();
+        let found = false;
+
+        $('#evento-table tbody tr').each(function () {
+            const row = $(this);
+            const idEvento = row.find('td:nth-child(2)').text().toLowerCase();
+
+            if (idEvento.includes(searchValue)) {
+                // Resaltar el texto buscado (opcional)
+                const highlighted = idEvento.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
+                row.find('td:nth-child(2)').html(highlighted);
+
+                row.fadeIn(); // Animación suave para mostrar
+                found = true;
+            } else {
+                row.fadeOut(); // Animación suave para ocultar
+            }
+        });
+
+        // Mostrar mensaje si no se encontraron resultados
+        if (!found) {
+            $('#no-results').show();
+        } else {
+            $('#no-results').hide();
+        }
+    }
+
+    let typingTimer;
+    $('#buscarEvento').on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(buscarEvento, 500);
+    });
+
+
+    function eliminarEvento(idEvento) {
+        // Mostrar una alerta de confirmación con SweetAlert
+        swal({
+            title: "¿Estás seguro?",
+            text: "Estás a punto de eliminar un Evento. Esta acción no se puede revertir.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url_api + lo_path + idEvento, // Suponiendo que el endpoint DELETE es /habitacion/{idHabitacion}
+                        success: function (response) {
+                            swal("Evento eliminado correctamente", {
+                                icon: "success",
+                            });
+                            listarEventos(); // Actualizar la lista después de la eliminación
+                        },
+                        error: function (xhr, status, error) {
+                            swal("Error al eliminar el evento", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                } else {
+                    swal("El evento no ha sido eliminada");
+                }
+            });
+    }
+
+
+    function modificar() {
+        // Redirigir a la página de actualización sin ID
+        window.location.href = 'actualizar/';
+    }
+
+    function cargarInicio() {
+        adminLogin(true);
+    }
+</script>
 
 {%endblock%}

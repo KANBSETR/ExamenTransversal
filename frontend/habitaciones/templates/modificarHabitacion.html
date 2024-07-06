@@ -8,10 +8,10 @@
                 <!-- Page title actions -->
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <button class="btn btn-primary" onclick="buscarHabitacion()">
+                        <button class="btn btn-primary" onclick="buscarEvento()">
                             Buscar
                         </button>
-                        <input id="buscarHabitaciones" class="search-input" type="text" placeholder="Buscar"/>
+                        <input id="buscarEvento" class="search-input" type="text" placeholder="Buscar"/>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                             <input id="numeroHabitacion" type="number" class="form-control" name="example-text-input"
                                 min="100" placeholder="Número de habitación" required>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4"> 
                             <label class="form-label">Cantidad dormitorios <span class="required">*</span> </label>
                             <input id="cantDormitorios" type="number" class="form-control" name="example-text-input"
                                 min="1" max="12" placeholder="Cantidad de dormitorios" required>
@@ -136,12 +136,12 @@
 
 <script>
 var url_api = 'http://localhost:9098/api/';
-var lo_path = 'habitacion/';
+var lo_path = 'evento/';
 
 
-function buscarHabitacion() {
-    var idHabitacion = $('#buscarHabitaciones').val(); // Obtener el valor del campo de texto de Rut
-    var pathUrl = url_api + lo_path + idHabitacion; // Construir la URL para la solicitud AJAX
+function buscarEvento() {
+    var idEvento = $('#buscarEvento').val(); // Obtener el valor del campo de texto de Rut
+    var pathUrl = url_api + lo_path + idEvento; // Construir la URL para la solicitud AJAX
 
     // Realizar la solicitud AJAX usando jQuery
     $.ajax({
@@ -149,7 +149,7 @@ function buscarHabitacion() {
         url: pathUrl,
         dataType: "json",
         beforeSend: function() {
-            console.log('Cargando información de la persona...'); // Mensaje de carga
+            console.log('Cargando información del evento...'); // Mensaje de carga
         },
         success: function(response) {
             console.log('Respuesta:', response); // Mostrar la respuesta en la consola
@@ -199,8 +199,6 @@ function limpiar() {
     $('#numeroHabitacion').val('');
 }
 
-
-
 function modificarHabitacion() {
     var idHabitacion = document.getElementById('buscarHabitaciones').value;
 
@@ -238,99 +236,9 @@ $.ajax({
     error: function(xhr, status, error) {
         console.error('Error:', error);
         console.log('Detalles del error:', xhr.responseText);
-        alert('Error al modificar libro: ' + xhr.responseText);
+        alert('Error al modificar la habitacion: ' + xhr.responseText);
     }
 });
 }
-
-
-function eliminar() {
-var rut = document.getElementById('txRut').value;
-
-$.ajax({
-    type: "DELETE",
-    url: url_api + lo_path + rut,
-    dataType: "json",
-    success: function(response) {
-        if (!response.OK) {
-            alert(response.msg);
-            return;
-        }
-        alert('Cliente eliminado correctamente');
-        limpiar();
-    },
-    error: function(xhr, status, error) {
-        console.error('Error:', error);
-        console.log('Detalles del error:', xhr.responseText);
-        alert('Error al eliminar cliente: ' + xhr.responseText);
-    }
-});
-}
-
-function limpiar() {
-document.getElementById('txRut').value = "";
-document.getElementById('txDv').value = "";
-document.getElementById('txNombre').value = "";
-document.getElementById('txPApellido').value = "";
-document.getElementById('txSApellido').value = "";
-document.getElementById('txEmail').value = "";
-document.getElementById('txFechaNacimiento').value = "";
-document.getElementById('cbPais').value = "";
-document.getElementById('cbComuna').value = "";
-document.getElementById('cbGenero').value = "";
-    document.getElementById('txRut').value = "";
-    document.getElementById('txDv').value = "";
-    document.getElementById('txNombre').value = "";
-    document.getElementById('txPApellido').value = "";
-    document.getElementById('txSApellido').value = "";
-    document.getElementById('txEmail').value = "";
-    document.getElementById('txFechaNacimiento').value = "";
-    document.getElementById('cbPais').value = "";
-    document.getElementById('cbComuna').value = "";
-    document.getElementById('cbGenero').value = "";
-}
-
-
-
-
-
-
-function actualizar() {
-    var rut = document.getElementById('txRut').value;
-    var data = {
-        rut: rut,
-        dv: document.getElementById('txDv').value,
-        nombre: document.getElementById('txNombre').value,
-        papellido: document.getElementById('txPApellido').value,
-        sapellido: document.getElementById('txSApellido').value,
-        email: document.getElementById('txEmail').value,
-        fechaNacimiento: document.getElementById('txFechaNacimiento').value,
-        pais: document.getElementById('cbPais').value,
-        comuna: document.getElementById('cbComuna').value,
-        genero: document.getElementById('cbGenero').value,
-    };
-
-    $.ajax({
-        type: "PUT",
-        url: url_api + lo_path + rut,
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        dataType: "json",
-        success: function(response) {
-            if (!response.OK) {
-                alert(response.msg);
-                return;
-            }
-            alert('Cliente actualizado correctamente');
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            console.log('Detalles del error:', xhr.responseText);
-            alert('Error al actualizar cliente: ' + xhr.responseText);
-        }
-    });
-}
-
-
 </script>
 {% endblock %}

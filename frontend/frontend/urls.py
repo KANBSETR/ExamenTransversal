@@ -22,4 +22,6 @@ urlpatterns = [
     path('', include('base.urls')),
     path('admin/', include('habitaciones.urls')),
     path('reserva/', include('reserva.urls')),
+    path('eventos/', include('centroeventos.urls')),
+    path('servicios/', include('servicios.urls')),
 ]

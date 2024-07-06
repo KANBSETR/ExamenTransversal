@@ -1,36 +1,32 @@
 const url_api = 'http://localhost:9098/api/'; // URL base de tu API
-const lo_path = 'eventos/';
+const lo_path = 'evento/';
 
-function agregarHabitacion() {
+function agregarEvento() {
     var data = {
-        numeroHabitacion: document.getElementById('numeroHabitacion').value,
-        cantDormitorios: document.getElementById('cantDormitorios').value,
-        cantBanos: document.getElementById('numBanos').value,
-        cantCamas: document.getElementById('numCamas').value,
-        tamanoCamas: document.getElementById('cbTamano').value,
-        cantPersonasDisp: document.getElementById('cantPersonasDisp').value,
+        nombre: document.getElementById('txNombreEvento').value,
+        fechaInicio: document.getElementById('dtfechaInicioEvento').value,
+        fechaTermino: document.getElementById('dtfechaFinEvento').value,
+        descripcion: document.getElementById('taDescripcion').value,
         precio: document.getElementById('numPrecio').value,
-        estadoHabitacion: document.getElementById('cbEstado').value,
-        idServicioAdicional: document.getElementById('cbServicios').value,
-        idTipoHabitacion: document.getElementById('cbTipoHab').value,
+        estado: document.getElementById('cbEstado').value,
         idEmpleado: document.getElementById('cbEmpleado').value,
+        idFPago: document.getElementById('cbPago').value,
         idHotel: document.getElementById('cbHotel').value,
+        idUsuario: document.getElementById('cbUsuario').value,
     };
 
     // Identificadores de campos a nombres personalizados
     var nombresCampos = {
-        numeroHabitacion: "Número de habitación",
-        cantDormitorios: "Cantidad de dormitorios",
-        cantBanos: "Cantidad de baños",
-        cantCamas: "Cantidad de camas",
-        tamanoCamas: "Tamaño de camas",
-        cantPersonasDisp: "Cantidad de personas disponibles",
+        nombre: "Nombre de evento",
+        fechaInicio: "Fecha de inicio",
+        fechaTermino: "Fecha de término",
+        descripcion: "Descripción",
         precio: "Precio",
-        estadoHabitacion: "Estado de la habitación",
-        idServicioAdicional: "Servicio adicional",
-        idTipoHabitacion: "Tipo de habitación",
-        idEmpleado: "Empleado a registrar la habitación",
+        estado: "Estado",
+        idEmpleado: "Empleado",
+        idFPago: "Forma de pago",
         idHotel: "Hotel",
+        idUsuario: "Usuario",
     };
 
     // Validación de datos y recopilación de campos vacíos
@@ -56,12 +52,12 @@ function agregarHabitacion() {
         success: function(response) {
             swal({
                 title: "¡Éxito!",
-                text: "Habitación agregada exitosamente!",
+                text: "Evento agregado exitosamente!",
                 icon: "success",
                 button: "Aceptar",
             }).then((value) => {
-                $('#modal-agregar-habitacion').modal('hide'); // Oculta el modal
-                listarHabitaciones(); 
+                $('#modal-agregar-evento').modal('hide'); // Oculta el modal
+                listarEventos(); 
                 limpiarFormulario(); 
             });
         },
@@ -72,77 +68,73 @@ function agregarHabitacion() {
 }
 
 
-
 function limpiarFormulario() {
-    document.getElementById('numeroHabitacion').value = '';
-    document.getElementById('cantDormitorios').value = '';
-    document.getElementById('numBanos').value = '';
-    document.getElementById('numCamas').value = '';
-    document.getElementById('cbTamano').value = document.getElementById('cbTamano').options[0].value;
-    document.getElementById('cantPersonasDisp').value = '';
+    document.getElementById('txNombreEvento').value = '';
+    document.getElementById('dtfechaInicioEvento').value = '';
+    document.getElementById('dtfechaFinEvento').value = '';
+    document.getElementById('taDescripcion').value = '';
     document.getElementById('numPrecio').value = '';
     document.getElementById('cbEstado').value = document.getElementById('cbEstado').options[0].value;
-    document.getElementById('cbServicios').value = document.getElementById('cbServicios').options[0].value;
-    document.getElementById('cbTipoHab').value = document.getElementById('cbTipoHab').options[0].value;
     document.getElementById('cbEmpleado').value = document.getElementById('cbEmpleado').options[0].value;
+    document.getElementById('cbPago').value = document.getElementById('cbPago').options[0].value;
     document.getElementById('cbHotel').value = document.getElementById('cbHotel').options[0].value;
+    document.getElementById('cbUsuario').value = document.getElementById('cbUsuario').options[0].value;
 }
 
-function actualizar() {
-    var idHabitacion = document.getElementById('idHabitacion').value;
-    var data = {
-        idHabitacion: document.getElementById('idHabitacion').value,
-        numHabitacion: document.getElementById('numHabitacion').value,
-        cantBanos: document.getElementById('numBanos').value,
-        cantCamas: document.getElementById('numCamas').value,
-        tamanoCamas: document.getElementById('cbTamano').value,
-        capaMax: document.getElementById('numCapacidad').value,
-        precio: document.getElementById('numPrecio').value,
-        estado: document.getElementById('cbEstado').value,
-        servicios: document.getElementById('cbServicios').value,
-        tipoHabitacion: document.getElementById('cbTipoHab').value,
-        empleado: document.getElementById('cbEmpleado').value,
-        hotel: document.getElementById('cdHotel').value,
-    };
+// function actualizar() {
+//     var idEvento = document.getElementById('idEvento').value;
+//     var data = {
+//         nombre: document.getElementById('txNombreEvento').value,
+//         fechaInicio: document.getElementById('dtfechaInicioEvento').value,
+//         fechaTermino: document.getElementById('dtfechaFinEvento').value,
+//         descripcion: document.getElementById('taDescripcion').value,
+//         precio: document.getElementById('numPrecio').value,
+//         estado: document.getElementById('cbEstado').value,
+//         idEmpleado: document.getElementById('cbEmpleado').value,
+//         idFPago: document.getElementById('cbPago').value,
+//         idHotel: document.getElementById('cbHotel').value,
+//         idUsuario: document.getElementById('cbUsuario').value,
+//     };
 
-    $.ajax({
-        type: "PUT",
-        url: url_api + lo_path + idHabitacion,
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        dataType: "json",
-        success: function(response) {
-            if (!response.OK) {
-                alert(response.msg);
-                return;
-            }
-            alert('Habitacion actualizada correctamente');
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            console.log('Detalles del error:', xhr.responseText);
-            alert('Error al actualizar la habitación: ' + xhr.responseText);
-        }
-    });
-}
+//     $.ajax({
+//         type: "PUT",
+//         url: url_api + lo_path + idEvento,
+//         data: JSON.stringify(data),
+//         contentType: "application/json",
+//         dataType: "json",
+//         success: function(response) {
+//             if (!response.OK) {
+//                 alert(response.msg);
+//                 return;
+//             }
+//             //Poner el swal 
+//             alert('Evento actualizado correctamente');
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error:', error);
+//             console.log('Detalles del error:', xhr.responseText);
+//             alert('Error al actualizar el evento: ' + xhr.responseText);
+//         }
+//     });
+// }
 
-function eliminar() {
-    var idHabitacion = document.getElementById('idHabitacion').value;
-    $.ajax({
-        type: "DELETE",
-        url: url_api + lo_path + id_habitacion,
-        dataType: "json",
-        success: function(response) {
-            if (!response.OK) {
-                alert(response.msg);
-                return;
-            }
-            alert('Habitacion eliminada correctamente');
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            console.log('Detalles del error:', xhr.responseText);
-            alert('Error al eliminar la habitacion: ' + xhr.responseText);
-        }
-    });
-}
+// function eliminar() {
+//     var idEvento = document.getElementById('idEvento').value;
+//     $.ajax({
+//         type: "DELETE",
+//         url: url_api + lo_path + idEvento,
+//         dataType: "json",
+//         success: function(response) {
+//             if (!response.OK) {
+//                 alert(response.msg);
+//                 return;
+//             }
+//             alert('Evento eliminado correctamente');
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error:', error);
+//             console.log('Detalles del error:', xhr.responseText);
+//             alert('Error al eliminar el evento: ' + xhr.responseText);
+//         }
+//     });
+// }
