@@ -1,7 +1,7 @@
     // Definimos la parte fija de la Url
-    var url_api= 'http://localhost:9010/api/registro-habitacion/'    
+    var url_api= 'http://localhost:9098/api/'    
     //var lo_path = 'persona/'
-    var lo_path = 'habitacion/'
+    var lo_path = 'inventario/'
 
     function HabitacionAgregar(){
         var parametros=""

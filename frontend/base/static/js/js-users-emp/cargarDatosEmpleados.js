@@ -27,34 +27,12 @@ $(document).ready(function() {
     // URL base de tu API
     const url_api = 'http://localhost:9098/api/';
 
+    //"idHotel": 1,
+    //"idFPago": 2,
+    //"idEmpleado": 1,
+    //"idUsuario": 1
     // Llama a cargarDatosSelect con la URL completa formada por la URL base + path específico
-    cargarDatosSelect(url_api + 'servicioAdicional', '#cbServicios', 'idServicioAdicional', 'nombre');
-    cargarDatosSelect(url_api + 'tipoHabitacion', '#cbTipoHab', 'idTipoHabitacion', 'nombre');
-    cargarDatosSelect(url_api + 'empleado', '#cbEmpleado', 'idEmpleado', 'rut');
-    cargarDatosSelect(url_api + 'hotel', '#cbHotel', 'idHotel', 'nombre');
+    cargarDatosSelect(url_api + 'persona', '#cbRut', 'rut', 'rut');
+    cargarDatosSelect(url_api + 'cargo', '#cbCargo', 'nombreCargo', 'nombreCargo');
 });
 
-// Para guardar datos estaticos en la bd
-$('#btnGuardar').click(function() {
-    const estadoHabitacion = $('#cbEstado').val();
-    const tipoCama = $('#cbTamano').val();
-    const url_api = 'http://localhost:9098/api/habitacion/'; 
-
-    const datosHabitacion = {
-        estado: estadoHabitacion,
-        tipoCama: tipoCama,
-    };
-
-    $.ajax({
-        type: "POST",
-        url: url_api, 
-        contentType: "application/json", 
-        data: JSON.stringify(datosHabitacion), 
-        success: function(response) {
-            console.log('Datos guardados correctamente:', response);
-        },
-        error: function(error) {
-            console.error('Error al guardar los datos:', error);
-        }
-    });
-});

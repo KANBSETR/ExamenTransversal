@@ -1,0 +1,146 @@
+{%extends 'baseAdmin.html'%}
+
+{%block content%}
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <button class="btn btn-primary" onclick="buscarUsuario()"> Buscar </button>
+                        <input id="buscarUsuario" class="search-input" type="text" placeholder="Buscar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="form-label">Nombre de usuario <span class="required">*</span> </label>
+                                <input id="nombreUsuario" type="text" class="form-control" name="example-text-input"
+                                    placeholder="Ej:usuario123" required>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="form-label">Correo electronico <span class="required">*</span> </label>
+                                <input id="correoUsuario" type="email" class="form-control" name="example-text-input"
+                                    placeholder="Ej:usuario123@usuario.com" required>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="form-label">Contraseña <span class="required">*</span> </label>
+                                <input id="contrasenaUsuario" type="password" class="form-control" name="example-text-input" required>
+                                <br>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" onclick="modificarUsuario()">Modificar Usuario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/js-users-emp/usuarios.js"></script>
+
+
+<script>
+    var url_api = 'http://localhost:9098/api/';
+    var lo_path = 'usuario/';
+
+
+
+
+    function buscarUsuario() {
+        var idUsuario = $('#buscarUsuario').val(); // Obtener el valor del campo de texto
+        var pathUrl = url_api + lo_path + idUsuario; // Construir la URL para la solicitud AJAX
+    
+        // Realizar la solicitud AJAX usando jQuery
+        $.ajax({
+            type: "GET",
+            url: pathUrl,
+            dataType: "json",
+            beforeSend: function() {
+                console.log('Cargando información del servicio...'); // Mensaje de carga
+            },
+            success: function(response) {
+                console.log('Respuesta:', response); // Mostrar la respuesta en la consola
+    
+                // Verificar si se recibió una respuesta válida
+                if (response && response.idUsuario) {
+                    // Asignar los valores recibidos a los campos del formulario
+                    $('#nombreUsuario').val(response.usuario);
+                    $('#correoUsuario').val(response.correo);
+                    $('#contrasenaUsuario').val(response.contrasena);
+                } else {
+                    console.log('No se recibió una respuesta válida'); // Manejo de caso sin respuesta válida
+                    limpiar(); // Llamar a la función limpiar() para restablecer los campos
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al obtener información del usuario:', error); // Manejo de errores
+                limpiar(); // Restablecer los campos en caso de error
+            }
+        });
+    }
+ 
+
+
+    
+    
+
+    function modificarUsuario() {
+        var idUsuario = document.getElementById('buscarUsuario').value;
+
+        var data = {
+            usuario: document.getElementById('usuario').value,
+            //nombre: document.getElementById('nombre').value,
+            correo: document.getElementById('correo').value,
+            contrasena: document.getElementById('contrasena').value
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: url_api + lo_path + idEvento + "/",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                if (!response.OK) {
+                    alert("Datos modificados");
+                    return;
+                }
+                alert('Usuario modificado correctamente');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                console.log('Detalles del error:', xhr.responseText);
+                alert('Error al modificar el usuario: ' + xhr.responseText);
+            }
+        });
+    }
+</script>
+
+{%endblock%}

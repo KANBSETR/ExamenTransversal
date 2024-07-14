@@ -11,7 +11,7 @@
                         <button class="btn btn-primary" onclick="buscarEvento()">
                             Buscar
                         </button>
-                        <input id="buscarEvento" class="search-input" type="text" placeholder="Buscar"/>
+                        <input id="buscarEvento" class="search-input" type="text" placeholder="Buscar" />
                     </div>
                 </div>
             </div>
@@ -22,87 +22,92 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <label class="form-label">Nombre del Evento <span class="required">*</span> </label>
-                            <input id="txNombreEvento" type="text" class="form-control" name="example-text-input"
-                                placeholder="Nombre del evento" required> <br>
-                        </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <label class="form-label">Fecha de inicio del evento <span class="required">*</span> </label>
-                                <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input"
-                                    required>
-                            </div>
-                            <br>
-                            <div class="col-lg-6">
-                                <label class="form-label">Fecha de termino del evento <span class="required">*</span> </label>
-                                <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input" required>
+                            <div class="col-lg-4">
+                                <label class="form-label">Nombre del evento <span class="required">*</span> </label>
+                                <input id="nombreEvento" type="text" class="form-control" name="example-text-input"
+                                    placeholder="Ej:parrillada" required>
                                 <br>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="form-label">Precio<span class="required">*</span> </label>
-                            <div class="input-group input-group-flat">
-                                <span class="input-group-text">
-                                    $
-                                </span>
-                                <input id="numPrecio" type="number" class="form-control" name="example-text-input"
-                                       min="500.000" placeholder="Precio" required>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="form-label">Fecha de inicio del evento <span class="required">*</span>
+                                    </label>
+                                    <input id="fechaInicioEvento" type="date" class="form-control"
+                                        name="example-text-input" required>
+                                </div>
+                                <br>
+                                <div class="col-lg-6">
+                                    <label class="form-label">Fecha de termino del evento <span
+                                            class="required">*</span>
+                                    </label>
+                                    <input id="fechaFinEvento" type="date" class="form-control"
+                                        name="example-text-input" required>
+                                    <br>
+                                </div>
                             </div>
-                            <br>
-                        </div>
-                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="form-label">Precio evento<span class="required">*</span> </label>
+                                <div class="input-group input-group-flat">
+                                    <span class="input-group-text">
+                                        $
+                                    </span>
+                                    <input id="precioEvento" type="number" class="form-control"
+                                        name="example-text-input" value="500.000" min="500.000"
+                                        placeholder="Precio evento" required>
+                                </div>
+                                <br>
+                            </div>
                             <div class="col-lg-6">
                                 <label class="form-label">Estado del Evento<span class="required">*</span> </label>
-                                <select id="cbEstado" class="form-select" name="estado-evento" required>
+                                <select id="cbEstadoEvento" class="form-select" name="estado-evento" required>
                                     <option value="">Seleccione el estado</option>
-                                    <option value="disponible">Disponible</option>
-                                    <option value="mantenimiento">En Mantenimiento</option>
-                                    <option value="no-disponible">No Disponible</option>
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="No disponible/En mantenimiento">No Disponible / En Mantenimiento
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-lg-6">
                                 <label class="form-label">Empleado<span class="required">*</span></label>
-                                <select id="cbEmpleado" class="form-select" name="tamano-camas" required>
+                                <select id="cbEmpleado" class="form-select" name="idEmpleado" required>
                                 </select>
                                 <br>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-6">
                                 <label class="form-label">Forma de Pago<span class="required">*</span></label>
-                                <select id="cbPago" class="form-select" name="tamano-camas" required>
+                                <select id="cbFormaPago" class="form-select" name="idFPago" required>
                                 </select>
                                 <br>
                             </div>
                             <div class="col-lg-6">
-                                <label class="form-label">Hotel<span class="required">*</span> </label>
+                                <label class="form-label">Hotel <span class="required">*</span> </label>
                                 <select id="cbHotel" class="form-select" name="hotelId" required>
-                                    
+                                    <!-- Las opciones se llenarán dinámicamente con JavaScript -->
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <label class="form-label">Usuario<span class="required">*</span></label>
-                            <select id="cbUsuario" class="form-select" name="tamano-camas" required>
-                            </select>
-                            <br>
+                            <div class="col-lg-6">
+                                <label class="form-label">Usuario<span class="required">*</span></label>
+                                <select id="cbUsuario" class="form-select" name="idUsuario" required>
+                                </select>
+                                <br>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div>
                                     <label class="form-label">Descripcion del Evento</label>
-                                    <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
+                                    <textarea id="descripcionEvento" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
-                    <br>
+                        <br>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary" onclick="modificarEvento()">Modificar Evento</button>
+                                <button type="button" class="btn btn-primary" onclick="modificarEvento()">Modificar
+                                    Evento</button>
                             </div>
                         </div>
                     </div>
@@ -112,88 +117,133 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/cargarDatosEvento.js"></script>
 
 <script>
-var url_api = 'http://localhost:9098/api/';
-var lo_path = 'evento/';
+    var url_api = 'http://localhost:9098/api/';
+    var lo_path = 'evento/';
 
 
-function buscarEvento() {
-    var idEvento = $('#buscarEvento').val(); // Obtener el valor del campo de texto
-    var pathUrl = url_api + lo_path + idEvento; // Construir la URL para la solicitud AJAX
 
-    // Realizar la solicitud AJAX usando jQuery
-    $.ajax({
-        type: "GET",
-        url: pathUrl,
-        dataType: "json",
-        beforeSend: function() {
-            console.log('Cargando información del evento...'); // Mensaje de carga
-        },
-        success: function(response) {
-            console.log('Respuesta:', response); // Mostrar la respuesta en la consola
+    function buscarEvento() {
+        var idEvento = $('#buscarEvento').val(); // Obtener el valor del campo de texto
+        var pathUrl = url_api + lo_path + idEvento; // Construir la URL para la solicitud AJAX
 
-            // Verificar si se recibió una respuesta válida
-            if (response && response.idEvento) {
-                // Asignar los valores recibidos a los campos del formulario
-                $('#txNombreEvento').val(response.nombre);
-                $('#dtfechaInicioEvento').val(response.fechaInicio);
-                $('#dtfechaTerminoEvento').val(response.fechaTermino);
-                $('#numPrecio').val(response.precio);
-                $('#cbEstado').val(response.estado);
-                $('#cbEmpleado').val(response.idEmpleado);
-                $('#cbPago').val(response.idFPago);
-                $('#cbHotel').val(response.idHotel);
-                $('#cbUsuario').val(response.idUsuario);
-                $('#taDescripcion').val(response.descripcion);
-            } else {
-                console.log('No se recibió una respuesta válida'); // Manejo de caso sin respuesta válida
-                limpiar(); // Llamar a la función limpiar() para restablecer los campos
+        // Realizar la solicitud AJAX usando jQuery
+        $.ajax({
+            type: "GET",
+            url: pathUrl,
+            dataType: "json",
+            beforeSend: function () {
+                console.log('Cargando información del evento...'); // Mensaje de carga
+            },
+            success: function (response) {
+                console.log('Respuesta:', response); // Mostrar la respuesta en la consola
+            
+                if (response && response.idEvento) {
+                    $('#nombreEvento').val(response.nombre);
+            
+                    // Verificar y convertir fechaInicio si es válida
+                    var fechaInicio = new Date(response.fechaInicio);
+                    if (!isNaN(fechaInicio.getTime())) { // Verificar si fechaInicio es una fecha válida
+                        $('#fechaInicioEvento').val(fechaInicio.toISOString().split('T')[0]);
+                    } else {
+                        console.error('fechaInicio no es válida:', response.fechaInicio);
+                        // Opcional: Manejar el caso de fecha inválida, por ejemplo, limpiar el campo
+                        $('#fechaInicioEvento').val('');
+                    }
+            
+                    // Verificar y convertir fechaTermino si es válida
+                    var fechaTermino = new Date(response.fechaTermino);
+                    if (!isNaN(fechaTermino.getTime())) { // Verificar si fechaTermino es una fecha válida
+                        $('#fechaFinEvento').val(fechaTermino.toISOString().split('T')[0]);
+                    } else {
+                        console.error('fechaTermino no es válida:', response.fechaTermino);
+                        // Opcional: Manejar el caso de fecha inválida, por ejemplo, limpiar el campo
+                        $('#fechaFinEvento').val('');
+                    }
+            
+                    $('#precioEvento').val(response.precio);
+                    $('#estadoBooleano').val(response.estado);
+                    $('#cbEmpleado').val(response.idEmpleado);
+                    $('#cbFormaPago').val(response.idFPago);
+                    $('#cbHotel').val(response.idHotel);
+                    $('#cbUsuario').val(response.idUsuario);
+                    $('#descripcionEvento').val(response.descripcion);
+                }
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error al obtener información del evento:', error); // Manejo de errores
-            limpiar(); // Restablecer los campos en caso de error
-        }
-    });
-}
-
-
-function modificarEvento() {
-    var idEvento = document.getElementById('buscarEvento').value;
-
-var data = {
-        nombre: document.getElementById('txNombreEvento').value,
-        fechaInicio: document.getElementById('dtfechaInicioEvento').value,
-        fechaTermino: document.getElementById('dtfechaFinEvento').value,
-        descripcion: document.getElementById('taDescripcion').value,
-        precio: document.getElementById('numPrecio').value,
-        estado: document.getElementById('cbEstado').value,
-        idEmpleado: document.getElementById('cbEmpleado').value,
-        idFPago: document.getElementById('cbPago').value,
-        idHotel: document.getElementById('cbHotel').value,
-        idUsuario: document.getElementById('cbUsuario').value,
-};
-
-$.ajax({
-    type: "PUT",
-    url: url_api + lo_path + idEvento + "/",
-    data: JSON.stringify(data),
-    contentType: "application/json",
-    dataType: "json",
-    success: function(response) {
-        if (!response.OK) {
-            alert("Datos modificados");
-            return;
-        }
-        alert('Evento modificado correctamente');
-    },
-    error: function(xhr, status, error) {
-        console.error('Error:', error);
-        console.log('Detalles del error:', xhr.responseText);
-        alert('Error al modificar el evento: ' + xhr.responseText);
+        });
     }
-});
-}
+
+
+    function toISOStringWithTimezone(date) {
+        const tzOffset = -date.getTimezoneOffset();
+        const diff = tzOffset >= 0 ? '+' : '-';
+        const pad = (n) => (n < 10 ? '0' + n : n);
+        const tzOffsetHours = Math.floor(Math.abs(tzOffset) / 60);
+        const tzOffsetMinutes = Math.abs(tzOffset) % 60;
+    
+        return date.getFullYear() +
+            '-' + pad(date.getMonth() + 1) +
+            '-' + pad(date.getDate()) +
+            'T' + pad(date.getHours()) +
+            ':' + pad(date.getMinutes()) +
+            ':' + pad(date.getSeconds()) +
+            diff + pad(tzOffsetHours) + ':' + pad(tzOffsetMinutes);
+    }
+
+    var fechaInicioEvento = document.getElementById('fechaInicio').value; // Asegúrate de tener un input para esto
+    var fechaFinEvento = document.getElementById('fechaTermino').value; // Asegúrate de tener un input para esto
+
+    
+    
+
+    function modificarEvento() {
+        var idEvento = document.getElementById('buscarEvento').value;
+
+        var estadoString = document.getElementById('cbEstadoEvento').value; // Obtener el valor del select como string
+        var estadoBooleano; // Variable para almacenar el valor booleano
+    
+        // Convertir el valor string a booleano
+        if (estadoString === "Disponible") {
+            estadoBooleano = true;
+        } else if (estadoString === "No disponible/En mantenimiento") {
+            estadoBooleano = false;
+        }
+
+        var data = {
+            nombre: document.getElementById('nombreEvento').value,
+            fechaInicio: fechaInicioEvento && !isNaN(new Date(fechaInicioEvento).getTime()) ? toISOStringWithTimezone(new Date(fechaInicioEvento)) : '',
+            fechaTermino: fechaFinEvento && !isNaN(new Date(fechaFinEvento).getTime()) ? toISOStringWithTimezone(new Date(fechaFinEvento)) : '',
+            descripcion: document.getElementById('descripcionEvento').value,
+            precio: document.getElementById('precioEvento').value ? parseInt(document.getElementById('precioEvento').value, 10) : 0,
+            estado: estadoBooleano,
+            idEmpleado: document.getElementById('cbEmpleado').value,
+            idFPago: document.getElementById('cbFormaPago').value,
+            idHotel: document.getElementById('cbHotel').value,
+            idUsuario: document.getElementById('cbUsuario').value,
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: url_api + lo_path + idEvento + "/",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                if (!response.OK) {
+                    alert("Datos modificados");
+                    return;
+                }
+                alert('Evento modificado correctamente');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                console.log('Detalles del error:', xhr.responseText);
+                alert('Error al modificar el evento: ' + xhr.responseText);
+            }
+        });
+    }
 </script>
 {% endblock %}

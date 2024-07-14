@@ -53,7 +53,8 @@
                             <thead>
                                 <tr>
                                     <th><button class="table-sort" data-sort="sort-quantity">#</button></th>
-                                    <th><button class="table-sort" data-sort="sort-text">Nombre del servicio</button></th>
+                                    <th><button class="table-sort" data-sort="sort-text">Nombre del servicio</button>
+                                    </th>
                                     <th><button class="table-sort" data-sort="sort-quantity">Descripcion</button></th>
                                     <th><button class="table-sort" data-sort="sort-quantity">Precio</button></th>
                                     <th></th>
@@ -63,6 +64,12 @@
                                 <!--Se llena con JavaScript-->
                             </tbody>
                         </table>
+                        <br>
+                        <div class="text-end">
+                            <button class="btn btn-primary" onclick="crearPDF()">
+                                Descargar PDF
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,14 +87,14 @@
             <div class="modal-body">
                 <div class="col-lg-4">
                     <label class="form-label">Nombre del Servicio <span class="required">*</span> </label>
-                    <input id="txNombreServicio" type="text" class="form-control" name="example-text-input"
+                    <input id="nombreServicioAd" type="text" class="form-control" name="example-text-input"
                         placeholder="Nombre del servicio" required> <br>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div>
                             <label class="form-label">Descripcion del Servicio</label>
-                            <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
+                            <textarea id="descripcionServicioAd" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -97,8 +104,8 @@
                         <span class="input-group-text">
                             $
                         </span>
-                        <input id="numPrecio" type="number" class="form-control" name="example-text-input"
-                               value="500.000" min="500.000" placeholder="Precio" required>
+                        <input id="precioServicioAd" type="number" class="form-control" name="example-text-input"
+                            value="500.000" min="500.000" placeholder="Precio" required>
                     </div>
                     <br>
                 </div>
@@ -109,7 +116,8 @@
                 </a>
                 <button id="btAgregar" class="btn btn-primary" onclick="agregarServicio()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
@@ -147,10 +155,8 @@
                             <td class="div-table-cell">${servicio.nombre}</td>
                             <td class="div-table-cell">${servicio.descripcion}</td>
                             <td class="div-table-cell">${servicio.precio}</td>
-                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">
-                                    Actualizar
-                                </button></td>
-                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarServicio(${servicio.idServicio})">Eliminar</button></td>
+                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">Actualizar </button></td>
+                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarServicio(${servicio.idServicioAdicional})">Eliminar</button></td>
                         </tr>
                     `;
                     tbody.append(row);
@@ -168,11 +174,11 @@
 
         $('#servicio-table tbody tr').each(function () {
             const row = $(this);
-            const idServicio = row.find('td:nth-child(1)').text().toLowerCase();
+            const idServicioAdicional = row.find('td:nth-child(1)').text().toLowerCase();
 
-            if (idServicio.includes(searchValue)) {
+            if (idServicioAdicional.includes(searchValue)) {
                 // Resaltar el texto buscado (opcional)
-                const highlighted = idServicio.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
+                const highlighted = idServicioAdicional.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
                 row.find('td:nth-child(1)').html(highlighted);
 
                 row.fadeIn(); // Animación suave para mostrar
@@ -197,7 +203,7 @@
     });
 
 
-    function eliminarServicio(idServicio) {
+    function eliminarServicio(idServicioAdicional) {
         // Mostrar una alerta de confirmación con SweetAlert
         swal({
             title: "¿Estás seguro?",
@@ -210,7 +216,7 @@
                 if (willDelete) {
                     $.ajax({
                         type: "DELETE",
-                        url: url_api + lo_path + idServicio, // Suponiendo que el endpoint DELETE es /habitacion/{idHabitacion}
+                        url: url_api + lo_path + idServicioAdicional, // Suponiendo que el endpoint DELETE es /habitacion/{idHabitacion}
                         success: function (response) {
                             swal("Servicio eliminado correctamente", {
                                 icon: "success",
@@ -229,6 +235,39 @@
             });
     }
 
+
+    function crearPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const table = document.getElementById('servicio-table');
+        const rows = table.getElementsByTagName('tr');
+
+        const columns = [
+            "ID",
+            "Nombre del servicio",
+            "Descripcion",
+            "Precio"
+        ];
+        const data = [];
+
+        // Obtener los datos de la tabla
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            const rowData = [];
+            for (let j = 0; j < cells.length - 2; j++) { // Omitir las últimas dos columnas (acciones)
+                rowData.push(cells[j].innerText);
+            }
+            data.push(rowData);
+        }
+
+        // Usar autotable para generar la tabla en el PDF con cabeceras
+        doc.autoTable({
+            head: [columns],
+            body: data,
+        });
+
+        doc.save('servicioAd.pdf');
+    }
 
     function modificar() {
         // Redirigir a la página de actualización sin ID

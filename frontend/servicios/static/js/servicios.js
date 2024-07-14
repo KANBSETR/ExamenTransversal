@@ -3,9 +3,9 @@ const lo_path = 'servicioAdicional/';
 
 function agregarServicio() {
     var data = {
-        nombre: document.getElementById('txNombreServicio').value,
-        descripcion: document.getElementById('taDescripcion').value,
-        precio: document.getElementById('numPrecio').value,
+        nombre: document.getElementById('nombreServicioAd').value,
+        descripcion: document.getElementById('descripcionServicioAd').value,
+        precio: document.getElementById('precioServicioAd').value,
     };
 
     // Identificadores de campos a nombres personalizados
@@ -48,16 +48,16 @@ function agregarServicio() {
             });
         },
         error: function(xhr, status, error) {
-            swal("Error", "No se pudo agregar la habitación. Por favor, intenta de nuevo.", "error");
+            swal("Error", "No se pudo agregar el servicio. Por favor, intenta de nuevo.", "error");
         }
     });
 }
 
 
 function limpiarFormulario() {
-    document.getElementById('txNombreServicio').value = '';
-    document.getElementById('taDescripcion').value = '';
-    document.getElementById('numPrecio').value = '';
+    document.getElementById('nombreServicioAd').value = '';
+    document.getElementById('descripcionServicioAd').value = '';
+    document.getElementById('precioServicioAd').value = '';
 }
 
 

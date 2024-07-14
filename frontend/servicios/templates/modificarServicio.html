@@ -24,14 +24,14 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <label class="form-label">Nombre del Servicio <span class="required">*</span> </label>
-                            <input id="txNombreServicio" type="text" class="form-control" name="example-text-input"
+                            <input id="nombreServicioAd" type="text" class="form-control" name="example-text-input"
                                 placeholder="Nombre del servicio" required> <br>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div>
                                     <label class="form-label">Descripcion del Servicio</label>
-                                    <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
+                                    <textarea id="descripcionServicioAd" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <span class="input-group-text">
                                     $
                                 </span>
-                                <input id="numPrecio" type="number" class="form-control" name="example-text-input"
+                                <input id="precioServicioAd" type="number" class="form-control" name="example-text-input"
                                        value="500.000" min="500.000" placeholder="Precio" required>
                             </div>
                             <br>
@@ -86,9 +86,9 @@ function buscarServicio() {
             // Verificar si se recibió una respuesta válida
             if (response && response.idServicioAdicional) {
                 // Asignar los valores recibidos a los campos del formulario
-                $('#txNombreServicio').val(response.nombre);
-                $('#taDescripcion').val(response.descripcion);
-                $('#numPrecio').val(response.precio);
+                $('#nombreServicioAd').val(response.nombre);
+                $('#descripcionServicioAd').val(response.descripcion);
+                $('#precioServicioAd').val(response.precio);
             } else {
                 console.log('No se recibió una respuesta válida'); // Manejo de caso sin respuesta válida
                 limpiar(); // Llamar a la función limpiar() para restablecer los campos
@@ -106,9 +106,9 @@ function modificarServicio() {
     var idServicio = document.getElementById('buscarServicio').value;
 
 var data = {
-    nombre: document.getElementById('txNombreServicio').value,
-    descripcion: document.getElementById('taDescripcion').value,
-    precio: document.getElementById('numPrecio').value,
+    nombre: document.getElementById('nombreServicioAd').value,
+    descripcion: document.getElementById('descripcionServicioAd').value,
+    precio: document.getElementById('precioServicioAd').value,
 };
 
 $.ajax({

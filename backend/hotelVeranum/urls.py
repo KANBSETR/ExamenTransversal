@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from hotelVeranum import views
+from .views import ObtenerCorreoUsuario
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -22,7 +24,8 @@ urlpatterns = [
     #Usuario 
     path('usuario/', views.UsuarioList.as_view(), name='usuario-list'),
     path('usuario/<int:pk>/', views.UsuarioDetail.as_view(), name='usuario-detail'),
-    
+    path('usuario/correo/<str:correo>/', ObtenerCorreoUsuario.as_view(), name='obtener-correo-usuario'),
+
     #Empleado
     path('empleado/', views.EmpleadoList.as_view(), name='empleado-list'),
     path('empleado/<int:pk>/', views.EmpleadoDetail.as_view(), name='empleado-detail'),
@@ -50,6 +53,15 @@ urlpatterns = [
     #Eventos
     path('evento/', views.EventosList.as_view(), name='evento-list'),
     path('evento/<int:pk>/', views.EventosDetail.as_view(), name='evento-detail'),
+    
+    #Forma de pago
+    path('formaPago/', views.FormaPagoList.as_view(), name='formaPago-list'),
+    path('formaPago/<int:pk>/', views.FormaPagoDetail.as_view(), name='formaPago-detail'),
+    
+    #Cargo
+    path('cargo/', views.CargoList.as_view(), name='cargo-list'),
+    path('cargo/<int:pk>/', views.CargoDetail.as_view(), name='cargo-detail'),
+    
     
 ]
 

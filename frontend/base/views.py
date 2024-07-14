@@ -19,5 +19,11 @@ def contraseñaOlvidada(request):
 def usuarios(request):
     return render(request, 'listadoUsuarios.html')
 
-def modalActualizarUsuarios(request):
-    return render(request, 'modalActualizarUsuarios.html')
+def actualizarUsuarios(request):
+    return render(request, 'modificarUsuarios.html')
+
+def empleados(request):
+    return render(request, 'listadoEmpleados.html')
+
+def actualizarEmpleados(request):
+    return render(request, 'modificarEmpleados.html')

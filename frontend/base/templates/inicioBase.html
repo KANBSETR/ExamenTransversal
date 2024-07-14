@@ -66,14 +66,25 @@
                                     d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
                             </svg>
                         </a>
-                        <div class="nav-item dropdown d-none d-md-flex me-3">
-                            <a href="/inicioSesion" class="nav-link d-flex lh-1 text-reset p-0">
-                                <span> Inicio de Sesion</span>
+                        <div class="nav-item dropdown d-none d-md-flex me-3" id="usuario-info">
+                            {% if usuario.is_authenticated %}
+                            <!-- Si el usuario está autenticado por el backend, muestra el nombre de usuario -->
+                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0">
+                                <span>{{ usuario.correo }}</span>
                             </a>
-                        </div>
-                        <div class="nav-item dropdown d-none d-md-flex me-3">
-                            <a href="/registro" class="nav-link d-flex lh-1 text-reset p-0" 
-                            ><span> Registrarse</span></a>
+                            {% else %}
+                            <!-- Contenedores para inicio de sesión y registro, que pueden ser reemplazados por JS si es necesario -->
+                            <div id="login-link">
+                                <a href="{% url 'inicioSesion' %}" class="nav-link d-flex lh-1 text-reset p-0">
+                                    <span>Inicio de Sesión</span>
+                                </a>
+                            </div>
+                            <div id="register-link">
+                                <a href="{% url 'registro' %}" class="nav-link d-flex lh-1 text-reset p-0">
+                                    <span>Registrarse</span>
+                                </a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
     

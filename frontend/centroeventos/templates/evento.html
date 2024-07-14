@@ -72,12 +72,21 @@
                                 <!--Se llena con JavaScript-->
                             </tbody>
                         </table>
+                        <br>
+                        <div class="text-end">
+                            <button class="btn btn-primary" onclick="crearPDF()">
+                                Descargar PDF
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 <div class="modal modal-blur fade" id="modal-agregar-evento" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -87,77 +96,80 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="col-lg-4">
-                    <label class="form-label">Nombre del Evento <span class="required">*</span> </label>
-                    <input id="txNombreEvento" type="text" class="form-control" name="example-text-input"
-                        placeholder="Nombre del evento" required> <br>
-                </div>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <label class="form-label">Fecha de inicio del evento <span class="required">*</span> </label>
-                        <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input"
-                            required>
-                    </div>
-                    <br>
-                    <div class="col-lg-6">
-                        <label class="form-label">Fecha de termino del evento <span class="required">*</span> </label>
-                        <input id="dtfechaInicioEvento" type="date" class="form-control" name="example-text-input" required>
+                    <div class="col-lg-4">
+                        <label class="form-label">Nombre del evento <span class="required">*</span> </label>
+                        <input id="nombreEvento" type="text" class="form-control" name="example-text-input"
+                            placeholder="Ej:parrillada" required>
                         <br>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="form-label">Precio<span class="required">*</span> </label>
-                    <div class="input-group input-group-flat">
-                        <span class="input-group-text">
-                            $
-                        </span>
-                        <input id="numPrecio" type="number" class="form-control" name="example-text-input"
-                               value="500.000" min="500.000" placeholder="Precio" required>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label class="form-label">Fecha de inicio del evento <span class="required">*</span>
+                            </label>
+                            <input id="fechaInicioEvento" type="date" class="form-control" name="example-text-input"
+                                required>
+                        </div>
+                        <br>
+                        <div class="col-lg-6">
+                            <label class="form-label">Fecha de termino del evento <span class="required">*</span>
+                            </label>
+                            <input id="fechaFinEvento" type="date" class="form-control" name="example-text-input"
+                                required>
+                            <br>
+                        </div>
                     </div>
-                    <br>
-                </div>
-                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="form-label">Precio evento<span class="required">*</span> </label>
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-text">
+                                $
+                            </span>
+                            <input id="precioEvento" type="number" class="form-control" name="example-text-input"
+                                value="500.000" min="500.000" placeholder="Precio evento" required>
+                        </div>
+                        <br>
+                    </div>
                     <div class="col-lg-6">
                         <label class="form-label">Estado del Evento<span class="required">*</span> </label>
-                        <select id="cbEstado" class="form-select" name="estado-evento" required>
+                        <select id="cbEstadoEvento" class="form-select" name="estado-evento" required>
                             <option value="">Seleccione el estado</option>
-                            <option value="disponible">Disponible</option>
-                            <option value="mantenimiento">En Mantenimiento</option>
-                            <option value="no-disponible">No Disponible</option>
+                            <option value="Disponible">Disponible</option>
+                            <option value="No disponible/En mantenimiento">No Disponible / En Mantenimiento</option>
                         </select>
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Empleado<span class="required">*</span></label>
-                        <select id="cbEmpleado" class="form-select" name="tamano-camas" required>
+                        <select id="cbEmpleado" class="form-select" name="idEmpleado" required>
                         </select>
                         <br>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-6">
                         <label class="form-label">Forma de Pago<span class="required">*</span></label>
-                        <select id="cbPago" class="form-select" name="tamano-camas" required>
+                        <select id="cbFormaPago" class="form-select" name="idFPago" required>
                         </select>
                         <br>
                     </div>
                     <div class="col-lg-6">
-                        <label class="form-label">Hotel<span class="required">*</span> </label>
+                        <label class="form-label">Hotel <span class="required">*</span> </label>
                         <select id="cbHotel" class="form-select" name="hotelId" required>
-                            
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
                         </select>
                     </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Usuario<span class="required">*</span></label>
+                        <select id="cbUsuario" class="form-select" name="idUsuario" required>
+                        </select>
+                        <br>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Usuario<span class="required">*</span></label>
-                    <select id="cbUsuario" class="form-select" name="tamano-camas" required>
-                    </select>
-                    <br>
-                </div>
+            </div>
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <div>
                             <label class="form-label">Descripcion del Evento</label>
-                            <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
+                            <textarea id="descripcionEvento" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -168,23 +180,33 @@
                 </a>
                 <button id="btAgregar" class="btn btn-primary" onclick="agregarEvento()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
                     </svg>
                     Agregar Evento
                 </button>
-                </a>
             </div>
         </div>
     </div>
 </div>
-</div>
+
+
+
+
+
+
+
+
+
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/static/js/eventos.js"></script>
+<script src="/static/js/cargarDatosEvento.js"></script>
+
 <script>
     $(document).ready(function () {
         listarEventos();
@@ -198,8 +220,9 @@
             success: function (data) {
                 const tbody = $('#evento-table tbody');
                 tbody.empty(); // Limpiar el contenido anterior
-
+    
                 data.forEach((evento, index) => {
+                    const estadoEvento = evento.estado ? "Disponible" : "En mantenimiento"; // Convertir booleano a string
                     const row = `
                         <tr>
                             <td class="div-table-cell">${evento.idEvento}</td>
@@ -208,7 +231,7 @@
                             <td class="div-table-cell">${evento.fechaTermino}</td>
                             <td class="div-table-cell">${evento.descripcion}</td>
                             <td class="div-table-cell">${evento.precio}</td>
-                            <td class="div-table-cell">${evento.estado}</td>
+                            <td class="div-table-cell">${estadoEvento}</td> 
                             <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">
                                     Actualizar
                                 </button></td>
@@ -260,7 +283,6 @@
 
 
     function eliminarEvento(idEvento) {
-        // Mostrar una alerta de confirmación con SweetAlert
         swal({
             title: "¿Estás seguro?",
             text: "Estás a punto de eliminar un Evento. Esta acción no se puede revertir.",
@@ -289,6 +311,48 @@
                     swal("El evento no ha sido eliminada");
                 }
             });
+    }
+
+    function crearPDF() {
+        setTimeout(() => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const table = document.getElementById('evento-table');
+            const rows = table.getElementsByTagName('tr');
+    
+            const columns = [
+                "ID",
+                "Nombre del evento",
+                "Fecha de inicio",
+                "Fecha de término",
+                "Descripción",
+                "Precio",
+                "Estado",
+                "Empleado",
+                "Forma de pago",
+                "Hotel",
+                "Usuario"
+            ];
+            const data = [];
+    
+            // Obtener los datos de la tabla
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const rowData = [];
+                for (let j = 0; j < cells.length - 2; j++) { // Omitir las últimas dos columnas (acciones)
+                    rowData.push(cells[j].innerText);
+                }
+                data.push(rowData);
+            }
+    
+            // Usar autotable para generar la tabla en el PDF con cabeceras
+            doc.autoTable({
+                head: [columns],
+                body: data,
+            });
+    
+            doc.save('eventos.pdf');
+        }, 1000); // Retraso de 1 segundo
     }
 
 

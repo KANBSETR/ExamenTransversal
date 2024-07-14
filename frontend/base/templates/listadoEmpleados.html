@@ -1,6 +1,9 @@
 {%extends 'baseAdmin.html'%}
 
 {%block content%}
+
+
+
 <div class="page-wrapper">
     <div class="page-header d-print-none">
         <div class="container-xl">
@@ -9,7 +12,7 @@
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
                         <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                            data-bs-target="#modal-agregar-inventario">
+                            data-bs-target="#modal-agregar-empleado">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -18,7 +21,7 @@
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
-                            Agregar Inventario a un hotel
+                            Agregar un nuevo empleado
                         </a>
                         <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
@@ -42,21 +45,20 @@
                 <div class="card-body">
                     <div id="table-default" class="table-responsive">
                         <div class="search-container">
-                            <input id="buscarInvetario" class="search-input" type="text" placeholder="Buscar"
-                                oninput="buscarInventario()" />
+                            <input id="buscarEmpleado" class="search-input" type="text" placeholder="Buscar"
+                                oninput="buscarEmpleado()" />
                         </div>
                         <div id="no-results" class="text-center" style="display: none;">
                             <p>No se encontraron resultados para su búsqueda.</p>
                         </div>
-                        <table id="inventario-table" class="table">
+                        <table id="empleado-table" class="table">
                             <thead>
                                 <tr>
                                     <th><button class="table-sort" data-sort="sort-quantity">#</button></th>
-                                    <th><button class="table-sort" data-sort="sort-text">Hotel</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Descripcion</button></th>
-                                    <!-- <th><button class="table-sort" data-sort="sort-quantity">Tipo de Habitacion</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Categoria</button></th>
-                                    <th><button class="table-sort" data-sort="sort-quantity">Servicio Adicional</button></th> -->
+                                    <th><button class="table-sort" data-sort="sort-quantity">Rut</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Usuario</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Cargo</button></th>
+                                    <th><button class="table-sort" data-sort="sort-quantity">Precio</button></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -64,6 +66,7 @@
                                 <!--Se llena con JavaScript-->
                             </tbody>
                         </table>
+                        <br>
                         <div class="text-end">
                             <button class="btn btn-primary" onclick="crearPDF()">
                                 Descargar PDF
@@ -76,120 +79,130 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal-agregar-inventario" tabindex="-1" role="dialog" aria-hidden="true">
+
+
+
+
+<div class="modal modal-blur fade" id="modal-agregar-empleado" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nuevo Inventario</h5>
+                <h5 class="modal-title">Nuevo empleado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="col-lg-6">
-                    <label class="form-label">Hotel <span class="required">*</span> </label>
-                    <select id="cbHotel" class="form-select" name="hotelId" required>
-                        <!-- Las opciones se llenarán dinámicamente con JavaScript -->
-                    </select>
-                </div>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div>
-                            <label class="form-label">Detalles del Inventario</label>
-                            <textarea id="taDescripcion" class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="col-lg-6">
-                        <label class="form-label">Tipo de Habitacion <span class="required">*</span> </label>
-                        <select id="cbTipoHab" class="form-select" name="tamano-camas" required>
+                    <div class="col-lg-4">
+                        <label class="form-label">Rut <span class="required">*</span> </label>
+                        <select id="cbRut" class="form-select" name="rut" required>
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
                         </select>
                     </div>
-                    <br>
-                </div>
-                <div class="col-lg-4">
-                    <div class="col-lg-6">
-                        <label class="form-label">Categoria<span class="required">*</span> </label>
-                        <input id="txCategoria" type="text" placeholder="Categoria">
+                    <div class="col-lg-4">
+                        <label class="form-label">Usuario <span class="required">*</span> </label>
+                        <input id="usuarioEmpleado" type="text" class="form-control" name="example-text-input"
+                            placeholder="Cristobal Molina" required>
+                        <br>
                     </div>
-                    <br>
-                </div>
-                <div class="col-lg-6">
-                    <label class="form-label">Serivicios Adicionales <span class="required">*</span> </label><span>
-                        <select id="cbServicios" class="form-select" name="tamano-camas" required>
+                    <form>
+                        <div class="col-lg-4">
+                            <label class="form-label">Clave <span class="required">*</span> </label>
+                            <input id="claveEmpleado" type="password" class="form-control" name="example-text-input"
+                                placeholder="clave123" required>
+                            <br>
+                        </div>
+                    </form>
+                    <div class="col-lg-4">
+                        <label class="form-label">Cargo <span class="required">*</span> </label>
+                        <select id="cbCargo" class="form-select" name="nombreCargo" required>
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
                         </select>
                         <br>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Sueldo <span class="required">*</span> </label>
+                        <input id="sueldoEmpleado" type="number" class="form-control" name="example-text-input"
+                            placeholder="600000000" required>
+                        <br>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
                     Cancelar
                 </a>
-                <button id="btAgregar" class="btn btn-primary" onclick="agregarInventario()">
+                <button id="btAgregar" class="btn btn-primary" onclick="agregarEmpleado()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 5l0 14" />
                         <path d="M5 12l14 0" />
                     </svg>
-                    Agregar servicio
+                    Agregar Empleado
                 </button>
                 </a>
             </div>
         </div>
     </div>
 </div>
-</div>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/static/js/inventario.js"></script>
+<script src="/static/js/js-users-emp/empleados.js"></script>
+<script src="/static/js/js-users-emp/cargarDatosEmpleados.js"></script>
+
 <script>
     $(document).ready(function () {
-        listarInventario();
+        listarEmpleados();
     });
 
-    function listarInventario() {
+    function listarEmpleados() {
         $.ajax({
             type: "GET",
             url: url_api + lo_path,
             dataType: "json",
             success: function (data) {
-                const tbody = $('#inventario-table tbody');
+                const tbody = $('#empleado-table tbody');
                 tbody.empty(); // Limpiar el contenido anterior
 
-                data.forEach((inventario, index) => {
+                data.forEach((empleado, index) => {
                     const row = `
                         <tr>
-                            <td class="div-table-cell">${inventario.idHotelDetalle}</td>
-                            <td class="div-table-cell">${inventario.idHotel}</td>
-                            <td class="div-table-cell">${inventario.descripcion}</td>
-                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificar()">
-                                    Actualizar
-                                </button></td>
-                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarServicio(${inventario.idHotelDetalle})">Eliminar</button></td>
+                            <td class="div-table-cell">${empleado.idEmpleado}</td>
+                            <td class="div-table-cell">${empleado.rut}</td>
+                            <td class="div-table-cell">${empleado.usuario}</td>
+                            <td class="div-table-cell">${empleado.idCargo}</td> 
+                            <td class="div-table-cell">${empleado.sueldo}</td>                           
+                            <td class="div-table-cell"><button class="btn btn-primary" onclick="modificarEmpleado()" ">Actualizar</button></td>                            
+                            <td class="div-table-cell"><button class="btn btn-danger" onclick="eliminarEmpleado(${empleado.idUsuario})">Eliminar</button></td>
                         </tr>
                     `;
                     tbody.append(row);
                 });
             },
             error: function (xhr, status, error) {
-                console.error('Error al obtener el inventario:', error);
+                console.error('Error al obtener los empleados:', error);
             }
         });
     }
 
-    function buscarInventario() {
-        const searchValue = $('#buscarInventario').val().toLowerCase();
+
+
+
+
+    function buscarEmpleado() {
+        const searchValue = $('#buscarEmpleado').val().toLowerCase();
         let found = false;
 
-        $('#inventario-table tbody tr').each(function () {
+        $('#empleado-table tbody tr').each(function () {
             const row = $(this);
-            const idHotelDetalle = row.find('td:nth-child(1)').text().toLowerCase();
+            const idEmpleado = row.find('td:nth-child(2)').text().toLowerCase();
 
-            if (idHotelDetalle.includes(searchValue)) {
+            if (idEmpleado.includes(searchValue)) {
                 // Resaltar el texto buscado (opcional)
-                const highlighted = idHotelDetalle.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
-                row.find('td:nth-child(1)').html(highlighted);
+                const highlighted = idEmpleado.replace(new RegExp(searchValue, 'gi'), (match) => `<mark>${match}</mark>`);
+                row.find('td:nth-child(2)').html(highlighted);
 
                 row.fadeIn(); // Animación suave para mostrar
                 found = true;
@@ -207,17 +220,17 @@
     }
 
     let typingTimer;
-    $('#buscarInventario').on('keyup', function () {
+    $('#buscarEmpleado').on('keyup', function () {
         clearTimeout(typingTimer);
-        typingTimer = setTimeout(buscarInventario, 500);
+        typingTimer = setTimeout(buscarEmpleado, 500);
     });
 
 
-    function eliminarInventario(idHotelDetalle) {
+    function eliminarEmpleado(idEmpleado) {
         // Mostrar una alerta de confirmación con SweetAlert
         swal({
             title: "¿Estás seguro?",
-            text: "Estás a punto de eliminar un inventario para este hotel. Esta acción no se puede revertir.",
+            text: "Estás a punto de eliminar un empleado. Esta acción no se puede revertir.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -226,65 +239,70 @@
                 if (willDelete) {
                     $.ajax({
                         type: "DELETE",
-                        url: url_api + lo_path + idHotelDetalle, // Suponiendo que el endpoint DELETE es /habitacion/{idHabitacion}
+                        url: url_api + lo_path + idEmpleado,
                         success: function (response) {
-                            swal("Inventario eliminado correctamente", {
+                            swal("Empleado eliminado correctamente", {
                                 icon: "success",
                             });
-                            listarServicios(); // Actualizar la lista después de la eliminación
+                            listarEmpleados(); // Actualizar la lista después de la eliminación
                         },
                         error: function (xhr, status, error) {
-                            swal("Error al eliminar el inventario", {
+                            console.error('Error al eliminar el empleado:', error);
+                            swal("Error al eliminar el empleado", {
                                 icon: "error",
                             });
                         }
                     });
                 } else {
-                    swal("El inventario no ha sido eliminada");
+                    swal("El usuario no ha sido eliminado");
                 }
             });
     }
+
+
+    
 
     function crearPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const table = document.getElementById('inventario-table');
-            const rows = table.getElementsByTagName('tr');
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const table = document.getElementById('usuario-table');
+        const rows = table.getElementsByTagName('tr');
 
-            const columns = [
-                "ID",
-                "Hotel",
-                "Descripción",
-            ];
-            const data = [];
+        const columns = [
+            "ID",
+            "Rut",
+            "Usuario",
+            "Cargo",
+            "Sueldo"
+        ];
+        const data = [];
 
-            // Obtener los datos de la tabla
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                const rowData = [];
-                for (let j = 0; j < cells.length - 2; j++) { // Omitir las últimas dos columnas (acciones)
-                    rowData.push(cells[j].innerText);
-                }
-                data.push(rowData);
+        // Obtener los datos de la tabla
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            const rowData = [];
+            for (let j = 0; j < cells.length - 2; j++) { // Omitir las últimas dos columnas (acciones)
+                rowData.push(cells[j].innerText);
             }
-
-            // Usar autotable para generar la tabla en el PDF con cabeceras
-            doc.autoTable({
-                head: [columns],
-                body: data,
-            });
-
-            doc.save('inventario.pdf');
+            data.push(rowData);
         }
 
-    function modificar() {
-        // Redirigir a la página de actualización sin ID
-        window.location.href = 'actualizar/';
+        // Usar autotable para generar la tabla en el PDF con cabeceras
+        doc.autoTable({
+            head: [columns],
+            body: data,
+        });
+
+        doc.save('empleados.pdf');
     }
 
-    //Pagina Privada
-    function cargarInicio() {
-        adminLogin(true);
+    function modificarEmpleado() {
+        // Redirigir a la página de actualización sin ID
+        window.location.href = 'actualizarEmpleados/';
     }
+
+
+
 </script>
+
 {%endblock%}

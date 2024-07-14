@@ -2,18 +2,34 @@ const url_api = 'http://localhost:9098/api/'; // URL base de tu API
 const lo_path = 'evento/';
 
 function agregarEvento() {
+    var estadoString = document.getElementById('cbEstadoEvento').value; // Obtener el valor del select como string
+    var estadoBooleano; // Variable para almacenar el valor booleano
+
+    // Convertir el valor string a booleano
+    if (estadoString === "Disponible") {
+        estadoBooleano = true;
+    } else if (estadoString === "No disponible/En mantenimiento") {
+        estadoBooleano = false;
+    }
+
+    // Asegúrate de obtener los valores de fechaInicioEvento y fechaFinEvento correctamente
+    var fechaInicioEvento = document.getElementById('fechaInicioEvento').value;
+    var fechaFinEvento = document.getElementById('fechaFinEvento').value;
+    var precioEvento = document.getElementById('precioEvento').value; // Asegúrate de que esta línea exista para definir precioEvento
+
     var data = {
-        nombre: document.getElementById('txNombreEvento').value,
-        fechaInicio: document.getElementById('dtfechaInicioEvento').value,
-        fechaTermino: document.getElementById('dtfechaFinEvento').value,
-        descripcion: document.getElementById('taDescripcion').value,
-        precio: document.getElementById('numPrecio').value,
-        estado: document.getElementById('cbEstado').value,
+        nombre: document.getElementById('nombreEvento').value,
+        fechaInicio: fechaInicioEvento ? (new Date(fechaInicioEvento).toISOString() || '') : '',
+        fechaTermino: fechaFinEvento ? (new Date(fechaFinEvento).toISOString() || '') : '',
+        descripcion: document.getElementById('descripcionEvento').value,
+        precio: precioEvento ? parseInt(precioEvento, 10) : NaN, // Convertir a número solo si no está vacío
+        estado: estadoBooleano,
         idEmpleado: document.getElementById('cbEmpleado').value,
-        idFPago: document.getElementById('cbPago').value,
+        idFPago: document.getElementById('cbFormaPago').value,
         idHotel: document.getElementById('cbHotel').value,
         idUsuario: document.getElementById('cbUsuario').value,
     };
+
 
     // Identificadores de campos a nombres personalizados
     var nombresCampos = {
@@ -29,15 +45,28 @@ function agregarEvento() {
         idUsuario: "Usuario",
     };
 
+    data.fechaInicio = isValidDate(fechaInicioEvento) ? new Date(fechaInicioEvento).toISOString() : '';
+    data.fechaTermino = isValidDate(fechaFinEvento) ? new Date(fechaFinEvento).toISOString() : '';
+
+    // Función para validar fechas
+    function isValidDate(dateString) {
+        var date = new Date(dateString);
+        return date instanceof Date && !isNaN(date);
+    }
+
     // Validación de datos y recopilación de campos vacíos
     let camposVacios = [];
     for (const [key, value] of Object.entries(data)) {
-        if (value.trim() === '') {
-            // Añade el nombre personalizado del campo a la lista de campos vacíos
+        // Verifica si el valor es una cadena y está vacío después de quitar espacios en blanco
+        if (typeof value === 'string' && value.trim() === '') {
+            camposVacios.push(nombresCampos[key]);
+        } else if (value === null || value === undefined) { // Verifica si el valor es nulo o indefinido
+            camposVacios.push(nombresCampos[key]);
+        } else if (typeof value === 'number' && isNaN(value)) { // Verifica si el valor es un número pero no es válido (NaN)
             camposVacios.push(nombresCampos[key]);
         }
     }
-
+    
     if (camposVacios.length > 0) {
         swal("Error", "Le faltan los siguientes campos por rellenar: " + camposVacios.join(', '), "error");
         return; // Detener la ejecución si hay campos vacíos
@@ -62,21 +91,22 @@ function agregarEvento() {
             });
         },
         error: function(xhr, status, error) {
-            swal("Error", "No se pudo agregar la habitación. Por favor, intenta de nuevo.", "error");
+            swal("Error", "No se pudo agregar el evento. Por favor, intenta de nuevo.", "error");
+
         }
     });
 }
 
 
 function limpiarFormulario() {
-    document.getElementById('txNombreEvento').value = '';
-    document.getElementById('dtfechaInicioEvento').value = '';
-    document.getElementById('dtfechaFinEvento').value = '';
-    document.getElementById('taDescripcion').value = '';
-    document.getElementById('numPrecio').value = '';
-    document.getElementById('cbEstado').value = document.getElementById('cbEstado').options[0].value;
+    document.getElementById('nombreEvento').value = '';
+    document.getElementById('fechaInicioEvento').value = '';
+    document.getElementById('fechaFinEvento').value = '';
+    document.getElementById('descripcionEvento').value = '';
+    document.getElementById('precioEvento').value = '';
+    document.getElementById('cbEstadoEvento').value = document.getElementById('cbEstadoEvento').options[0].value;
     document.getElementById('cbEmpleado').value = document.getElementById('cbEmpleado').options[0].value;
-    document.getElementById('cbPago').value = document.getElementById('cbPago').options[0].value;
+    document.getElementById('cbFormaPago').value = document.getElementById('cbFormaPago').options[0].value;
     document.getElementById('cbHotel').value = document.getElementById('cbHotel').options[0].value;
     document.getElementById('cbUsuario').value = document.getElementById('cbUsuario').options[0].value;
 }

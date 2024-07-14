@@ -9,5 +9,8 @@ urlpatterns = [
     path('contraseñaOlvidada/', views.contraseñaOlvidada, name='contraseñaOlvidada'),
     
     path('usuarios/', views.usuarios, name='usuarios'),
-    path('modalActualizarUsuarios/', views.modalActualizarUsuarios, name='modalActualizarUsuarios'),
+    path('usuarios/actualizarUsuarios/', views.actualizarUsuarios, name='actualizarUsuarios'),
+    
+    path('empleados/', views.empleados, name='empleados'),
+    path('empleados/actualizarEmpleados/', views.actualizarEmpleados, name='actualizarEmpleados'),
 ]
